@@ -17,7 +17,7 @@ namespace TM.Domain.Services
 
         public void Test()
         {
-            //var xx = _db.Users.Select(x=>x);
+            var xx = _db.Users.Select(x=>x);
         }
     }
 }
