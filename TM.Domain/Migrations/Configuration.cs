@@ -40,7 +40,7 @@ namespace TM.Domain.Migrations
                 catalogLevel01 = new Catalog { CatalogName = "目錄維護(SuperAdmin Only)", CatalogOrder = 1, CatalogCode = "01", IsMenu = true, MenuControllerName = "Catalogs", IconClass = "fa fa-user-secret fa-fw", ParentCatalogId = null, Comment = "" };
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
-                    new Catalog { CatalogName = "首頁",              CatalogOrder = 1, CatalogCode = "0100", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01 },
+                    new Catalog { CatalogName = "首頁1",              CatalogOrder = 1, CatalogCode = "0100", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01 },
                     new Catalog { CatalogName = "新增",              CatalogOrder = 2, CatalogCode = "0101", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01 },
                     new Catalog { CatalogName = "修改",              CatalogOrder = 3, CatalogCode = "0102", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01 },
                     new Catalog { CatalogName = "刪除",              CatalogOrder = 4, CatalogCode = "0103", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01 },
