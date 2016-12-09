@@ -240,3 +240,11 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+
+# ¦Û­q
+/TM.Domain/bin
+/TM.Domain/obj
+/TM.Web/bin
+/TM.Web/obj
+.vs/TM.Domain/v14
