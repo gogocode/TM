@@ -13,7 +13,7 @@ namespace TM.Domain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201612090409360_InitTMDb"; }
+            get { return "201612090603476_InitTMDb"; }
         }
         
         string IMigrationMetadata.Source

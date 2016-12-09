@@ -19,7 +19,7 @@ namespace TM.Domain.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         [StringLength(30)]
         [DisplayName("使用者名稱")]
@@ -32,9 +32,11 @@ namespace TM.Domain.Models
         [Index("IX_Account", IsUnique = true)]
         public string Account { get; set; }
 
+        [StringLength(50)]
         [DisplayName("使用者密碼")]
         public string Password { get; set; }
 
+        [StringLength(50)]
         [DisplayName("電子郵件")]
         [Required(ErrorMessage = "請輸入電子郵件")]
         [EmailAddress(ErrorMessage = "電子郵件格式錯誤")]

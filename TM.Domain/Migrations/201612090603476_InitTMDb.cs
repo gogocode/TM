@@ -39,7 +39,7 @@ namespace TM.Domain.Migrations
                 "dbo.Users",
                 c => new
                     {
-                        UserId = c.String(nullable: false, maxLength: 128),
+                        UserId = c.Int(nullable: false, identity: true),
                         UserName = c.String(nullable: false, maxLength: 30),
                         Account = c.String(nullable: false, maxLength: 20),
                         Password = c.String(),
@@ -66,7 +66,7 @@ namespace TM.Domain.Migrations
                 "dbo.UserCatalogs",
                 c => new
                     {
-                        User_UserId = c.String(nullable: false, maxLength: 128),
+                        User_UserId = c.Int(nullable: false),
                         Catalog_CatalogId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.User_UserId, t.Catalog_CatalogId })
@@ -79,7 +79,7 @@ namespace TM.Domain.Migrations
                 "dbo.UserRoles",
                 c => new
                     {
-                        User_UserId = c.String(nullable: false, maxLength: 128),
+                        User_UserId = c.Int(nullable: false),
                         Role_RoleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.User_UserId, t.Role_RoleId })

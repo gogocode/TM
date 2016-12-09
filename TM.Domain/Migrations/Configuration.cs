@@ -1,31 +1,37 @@
 namespace TM.Domain.Migrations
 {
+    using Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TM.Domain.Models.TMDbContext>
+    public class Configuration : DbMigrationsConfiguration<TM.Domain.Models.TMDbContext>
     {
+        private readonly bool isInitDBData = false;
+
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(TM.Domain.Models.TMDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (isInitDBData) {
+                InitDBData(context);
+            }
+        }
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+        protected void InitDBData(TM.Domain.Models.TMDbContext context)
+        {
+            context.Users.AddOrUpdate(
+            new User { UserName = "超級管理員", Account = "superadmin", Password = "1234", Email = "tonyho@86shop.com.tw", IsActive = true },
+            new User { UserName = "管理員", Account = "admin", Password = "1234", Email = "tonyho@86shop.com.tw", IsActive = true }
+                    );
+
+            context.SaveChanges();
         }
     }
 }
