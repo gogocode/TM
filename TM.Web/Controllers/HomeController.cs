@@ -10,10 +10,11 @@ namespace TM.Web.Controllers
 {
     public class HomeController : Controller
     {
-        UserService _userService = new UserService();
+        private UserService _userService;
 
         public HomeController()
         {
+            _userService = new UserService();
         }
 
         public ActionResult Index()
@@ -36,5 +37,20 @@ namespace TM.Web.Controllers
 
             return View();
         }
+
+     
+        //public PartialViewResult Navigation()
+        //{
+        //    List<Catalog> catalogList = new List<Catalog>();
+
+        //    User me = _userService.FindByAccount(User.Identity.Name);
+        //    if (me != null)
+        //    {
+        //        catalogList = catalogsService.FindAllByUserId(me.UserId).ToList();
+        //    }
+
+        //    return PartialView(catalogList);
+        //}
+      
     }
 }

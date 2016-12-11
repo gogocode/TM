@@ -32,20 +32,15 @@ namespace TM.Domain.Models
         [Required(ErrorMessage = "請輸入目錄排序")]
         public int CatalogOrder { get; set; }
 
-        [StringLength(50)]
+        [StringLength(200)]
         [DisplayName("目錄權限碼")]
         [Required(ErrorMessage = "請輸入目錄權限碼")]
-        [RegularExpression(@"[\S]+$", ErrorMessage = "禁止使用空白字串")]
-        [Index("IX_CatalogCode", IsUnique = true)]
-        public string CatalogCode { get; set; }
+        [Index("IX_Permission", IsUnique = true)]
+        public string Permission { get; set; }
 
         [DisplayName("是否為Menu")]
         [Required(ErrorMessage = "請輸入是否為Menu")]
         public bool IsMenu { get; set; }
-
-        [StringLength(50)]
-        [DisplayName("Controller/Action")]
-        public string MenuControllerName { get; set; }
 
         [StringLength(50)]
         [DisplayName("IconClass")]

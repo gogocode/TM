@@ -1,0 +1,75 @@
+﻿@using CBDM.Domain.Models
+@model IEnumerable<Catalog>
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="@Url.Action("Index", "Account")" class="navbar-brand">CBDM - 跨境直郵</a>
+    </div>
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li>
+                    <a href="@Url.Action("Profile", "Account")"><i class="fa fa-user fa-fw"></i> 個人資料</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangePassword", "Account")"><i class="fa fa-gear fa-fw"></i> 密碼變更</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                @foreach (var item in Model.Where(c => c.ParentCatalogId == null))
+                {
+                    @Print(item)
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+@helper Print(Catalog data)
+{
+var subCatalogs = data.SubCatalogs.Where(o => o.IsMenu == true).ToList();
+
+    <li>
+        <a href="@Url.Action("Index", @data.MenuControllerName)">
+            <i class="@data.IconClass"></i>
+            @data.CatalogName
+            @if (subCatalogs.Count() > 0)
+            { <span class="fa arrow"></span> }
+        </a>
+
+        @if (subCatalogs.Count() > 0)
+        {
+            <ul class="nav nav-second-level">
+                @foreach (Catalog catalog in subCatalogs.OrderBy(x => x.CatalogOrder).ToList())
+                {
+                    @Print(catalog)
+                }
+            </ul>
+        }
+    </li>
+}

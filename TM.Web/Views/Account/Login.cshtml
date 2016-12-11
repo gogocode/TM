@@ -1,8 +1,10 @@
-﻿@{
+﻿@model TM.Domain.ViewModels.Account.AccountLoginView
+
+@{
     Layout = null;
 }
-<html>
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,26 +33,33 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">登入</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        @using (Html.BeginForm("LoginPost", "Account", FormMethod.Post,new { @class = "" }))
+                        {
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    @Html.LabelFor(model => model.Account, new { placeholder = "Account" })
+                                    @Html.TextBoxFor(model => model.Account, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Account)
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    @Html.LabelFor(model => model.Password, new { placeholder = "Password" })
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Password)
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" type="checkbox" value="Remember Me">記得我
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">登入</button>
+                                    <button type="button" class="btn btn-info">註冊</button>
+                                </div>
                             </fieldset>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>
