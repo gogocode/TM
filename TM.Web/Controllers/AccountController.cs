@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using TM.Domain.Models;
+using TM.Domain.Services;
 using TM.Domain.ViewModels.Account;
 
 namespace TM.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private UserService _userService;
+
+        public AccountController()
+        {
+            _userService = new UserService();
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
+        #region 登入
         [HttpGet]
         public ActionResult Login()
         {
@@ -23,12 +34,59 @@ namespace TM.Web.Controllers
         [HttpPost]
         public ActionResult LoginPost(AccountLoginView vm)
         {
-            if(ModelState.IsValid)
+            string msg = string.Empty;
+            string roles = string.Empty;
+
+            msg = CheckAccount(vm,ref roles);
+
+            if (ModelState.IsValid && string.IsNullOrWhiteSpace(msg) )
             {
+                //新增登入用Ticket
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                    1,
+                    vm.Account,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(60),
+                    false,
+                    roles,
+                    FormsAuthentication.FormsCookiePath
+                );
+
+                //資料加密成字串
+                string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                //將資料存入cookies中
+                Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket));
+
                 return RedirectToAction("Index", "Home");
             }
 
-            return View("Login",vm);
+            ViewBag.ErrorMsg = msg;
+
+            return View("Login", vm);
         }
+        #endregion
+
+        #region 私有方法
+        private string CheckAccount(AccountLoginView vm,ref string roles)
+        {
+            string msg = string.Empty;
+
+            User user = _userService.FindUser(vm);
+
+            if(user == null)
+            {
+                msg = "帳號或密碼有誤";
+            }
+            else if(!user.IsActive)
+            {
+                msg = "帳號未啟動";
+            }
+
+            roles = string.Join(",",user.Roles);
+
+            return msg;
+        }
+
+        #endregion
     }
 }

@@ -38,19 +38,26 @@ namespace TM.Web.Controllers
             return View();
         }
 
-     
-        //public PartialViewResult Navigation()
-        //{
-        //    List<Catalog> catalogList = new List<Catalog>();
+        [Authorize]
+        public ActionResult Menu()
+        {
+            List<Catalog> catalogs = new List<Catalog>();
+            
+            User user = _userService.FindUserByAccount(User.Identity.Name);
+            if (user != null)
+            {
+                foreach(var role in user.Roles)
+                {
+                    catalogs.AddRange(role.Catalogs);
+                }
+            }
 
-        //    User me = _userService.FindByAccount(User.Identity.Name);
-        //    if (me != null)
-        //    {
-        //        catalogList = catalogsService.FindAllByUserId(me.UserId).ToList();
-        //    }
+            List<Catalog> catalogsByDistinc = (from c in catalogs
+                                              group c by c.CatalogId into g
+                                              select g.First()).ToList();
 
-        //    return PartialView(catalogList);
-        //}
-      
+            return PartialView(catalogsByDistinc);
+        }
+
     }
 }

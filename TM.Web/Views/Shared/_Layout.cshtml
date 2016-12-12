@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>工作管理系統</title>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -25,11 +25,24 @@
     <![endif]-->
 </head>
 <body>
-    <div id="wrapper">
 
-        @Html.Partial("_NavigationView")
+    <div id="wrapper">
+        @Html.Action("Menu", "Home")
 
         <div id="page-wrapper">
+            <div id="msgZone">
+                @if (ViewBag.ErrorMsg != null)
+                {
+                    <br>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>
+                            @Html.Raw(@ViewBag.ErrorMsg)
+                        </strong>
+                    </div>
+                }
+            </div>
+
             @RenderBody()
         </div>
         <!-- /#page-wrapper -->

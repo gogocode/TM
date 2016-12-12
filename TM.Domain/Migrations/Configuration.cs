@@ -56,7 +56,7 @@ namespace TM.Domain.Migrations
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
                     new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "Catalog/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "首頁", CatalogOrder = 2, Permission = "Catalog/Index", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
+                    new Catalog { CatalogName = "首頁", CatalogOrder = 2, Permission = "Catalog/Index", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                     new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Catalog/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
                     new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Catalog/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
@@ -66,7 +66,7 @@ namespace TM.Domain.Migrations
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
                     new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "Diary/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole, generalRole } },
-                    new Catalog { CatalogName = "首頁", CatalogOrder = 2, Permission = "Diary/Index", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole, generalRole } },
+                    new Catalog { CatalogName = "首頁", CatalogOrder = 2, Permission = "Diary/Index", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole, generalRole } },
                     new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Diary/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole , generalRole } },
                     new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Diary/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole , generalRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
@@ -76,7 +76,7 @@ namespace TM.Domain.Migrations
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
                     new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "User/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
-                    new Catalog { CatalogName = "首頁", CatalogOrder = 2, Permission = "User/Index", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
+                    new Catalog { CatalogName = "首頁", CatalogOrder = 2, Permission = "User/Index", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                     new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "User/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                     new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "User/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
