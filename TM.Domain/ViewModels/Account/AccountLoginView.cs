@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TM.Domain.ViewModels.Account
+namespace TM.Domain.ViewModels
 {
     public class AccountLoginView
     {

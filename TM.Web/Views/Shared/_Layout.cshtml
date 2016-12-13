@@ -11,12 +11,16 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    @*SB ADMIN2*@
     <!-- MetisMenu CSS -->
     <link href="~/ThirdParties/sb-admin-2/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="~/ThirdParties/sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="~/ThirdParties/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,16 +35,22 @@
 
         <div id="page-wrapper">
             <div id="msgZone">
-                @if (ViewBag.ErrorMsg != null)
+                @{
+                    string message = TempData["Message"] != null ? TempData["Message"].ToString() : string.Empty;
+                    string[] msg = message.Split(',');
+                }
+
+                @if (!string.IsNullOrWhiteSpace(message))
                 {
                     <br>
-                    <div class="alert alert-warning alert-dismissible" role="alert">
+                    <div class="alert alert-@msg[0] alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong>
-                            @Html.Raw(@ViewBag.ErrorMsg)
+                            @Html.Raw(@msg[1])
                         </strong>
                     </div>
                 }
+                
             </div>
 
             @RenderBody()
@@ -52,13 +62,14 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
+    @*SB ADMIN2*@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="~/ThirdParties/sb-admin-2/vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Morris Charts JavaScript -->
     <script src="~/ThirdParties/sb-admin-2/vendor/raphael/raphael.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="~/ThirdParties/sb-admin-2/dist/js/sb-admin-2.js"></script>
-
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

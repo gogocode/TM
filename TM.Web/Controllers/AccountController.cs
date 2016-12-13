@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TM.Domain.Models;
 using TM.Domain.Services;
-using TM.Domain.ViewModels.Account;
+using TM.Domain.ViewModels;
 
 namespace TM.Web.Controllers
 {

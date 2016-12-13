@@ -21,6 +21,7 @@ namespace TM.Domain.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DisplayName("目錄編號")]
         public int CatalogId { get; set; }
 
         [StringLength(30)]
@@ -38,8 +39,8 @@ namespace TM.Domain.Models
         [Index("IX_Permission", IsUnique = true)]
         public string Permission { get; set; }
 
-        [DisplayName("是否為Menu")]
-        [Required(ErrorMessage = "請輸入是否為Menu")]
+        [DisplayName("是否為選單")]
+        [Required(ErrorMessage = "請輸入是否為選單")]
         public bool IsMenu { get; set; }
 
         [StringLength(50)]

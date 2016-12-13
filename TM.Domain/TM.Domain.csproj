@@ -65,6 +65,7 @@
     <Compile Include="Services\CatalogService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
+    <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

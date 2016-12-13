@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TM.Domain.Models;
-using TM.Domain.ViewModels.Account;
+using TM.Domain.ViewModels;
 
 namespace TM.Domain.Services
 {
