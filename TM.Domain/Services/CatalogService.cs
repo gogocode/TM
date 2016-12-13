@@ -52,7 +52,32 @@ namespace TM.Domain.Services
             {
                 throw ex;
             }
+        }
 
+        public int Delete(int id)
+        {
+            try
+            {
+               List<Catalog> catalogs =  _db.Catalogs.Include(c => c.ParentCatalog).OrderBy(x => x.CatalogId).ToList();
+
+                Catalog catalog = catalogs.Where(x => x.CatalogId == id).FirstOrDefault();
+                RecursiveDelte(catalog);
+                return _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void RecursiveDelte(Catalog catalog)
+        {
+            foreach(var data in catalog.SubCatalogs.ToArray())
+            {
+                RecursiveDelte(data);
+            }
+
+            _db.Catalogs.Remove(catalog);
         }
     }
 }

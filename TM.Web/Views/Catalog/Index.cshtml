@@ -124,9 +124,8 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            <button type="button" class="EditBtn btn btn-warning btn-xs" data-cid="@item.CatalogId" >修改</button>
-
-            @Html.ActionLink("刪除", "Delete", new { id = item.CatalogId }, new { @class = "btn btn-danger btn-xs" })
+            <button type="button" class="EditBtn btn btn-warning btn-xs" data-cid="@item.CatalogId">修改</button>
+            <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-cid="@item.CatalogId">刪除</button>
         </td>
     </tr>
 
@@ -147,6 +146,7 @@
                 expanderCollapsedClass: 'glyphicon glyphicon-plus'
             });
 
+            //編輯
             $(".EditBtn").click(function(){
                 var editUrl = '@Url.Action("Edit","Catalog")';
                 var options = {
@@ -154,28 +154,48 @@
                     keyboard: true
                 };
                 var cid = $(this).data("cid");
-    
-                $.ajax({  
-                    type: "GET",  
+
+                $.ajax({
+                    type: "GET",
                     url: editUrl,
-                    contentType: "application/json; charset=utf-8",  
-                    data: { "id": cid },  
-                    datatype: "json",  
-                    success: function (data) {   
+                    contentType: "application/json; charset=utf-8",
+                    data: { "id": cid },
+                    datatype: "json",
+                    success: function (data) {
                         $('#ShowModalContent').html(data);
                         $('#MainModal').modal(options);
                         $('#MainModal').modal('show');
-  
-                    },  
-                    error: function () {  
-                        alert("Dynamic content load failed.");  
-                    }  
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
                 });
             });
 
             $("#closbtn").click(function () {
                 $('#myModal').modal('hide');
             });
+
+            //刪除
+            $(".DeleteBtn").click(function () {
+                event.preventDefault();
+                var deleteUrl = '@Url.Action("Delete","Catalog")';
+                var cid = $(this).data("cid");
+
+                $.confirm({
+                    title: '注意',
+                    content: '確定刪除該筆資料?',
+                    buttons: {
+                        confirm: function () {
+                            location.href = deleteUrl + "?id=" + cid;
+                        },
+                        cancel: function () {
+                        },
+                    }
+                });
+            });
+
         });
     </script>
 }
