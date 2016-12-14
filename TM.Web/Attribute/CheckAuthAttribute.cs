@@ -24,6 +24,11 @@ namespace TM.Web.Attribute
             string controllerName = routeData.GetRequiredString("controller");
             string actionName = routeData.GetRequiredString("action");
 
+            if(!httpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
             bool isValid = _CatalogService.IsValidPermissionByRoles(httpContext.User.Identity.Name, controllerName, actionName) > 0;
 
             return isValid;

@@ -23,6 +23,7 @@ namespace TM.Web.Controllers
         #region 登入
         [HttpGet]
         public ActionResult Login()
+
         {
             AccountLoginView vm = new AccountLoginView();
             vm.Account = "superadmin";
