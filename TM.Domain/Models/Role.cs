@@ -22,6 +22,11 @@ namespace TM.Domain.Models
         public int RoleId { get; set; }
 
         [StringLength(30)]
+        [DisplayName("角色英文名稱")]
+        [Required(ErrorMessage = "請輸入角色英文名稱")]
+        public string RoleEngName { get; set; }
+
+        [StringLength(60)]
         [DisplayName("角色名稱")]
         [Required(ErrorMessage = "請輸入角色名稱")]
         public string RoleName { get; set; }

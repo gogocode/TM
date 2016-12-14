@@ -7,6 +7,7 @@ using System.Web.Security;
 using TM.Domain.Models;
 using TM.Domain.Services;
 using TM.Domain.ViewModels;
+using TM.Web.Attribute;
 
 namespace TM.Web.Controllers
 {
@@ -19,16 +20,15 @@ namespace TM.Web.Controllers
             _userService = new UserService();
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         #region 登入
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            AccountLoginView vm = new AccountLoginView();
+            vm.Account = "superadmin";
+            vm.Password = "1234";
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -61,8 +61,16 @@ namespace TM.Web.Controllers
             }
 
             ViewBag.ErrorMsg = msg;
-
+    
             return View("Login", vm);
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+
+            return Redirect(Url.Action("Login", "Account"));
         }
         #endregion
 
@@ -82,10 +90,11 @@ namespace TM.Web.Controllers
                 msg = "帳號未啟動";
             }
 
-            roles = string.Join(",",user.Roles);
+            roles = string.Join(",",user.Roles.Select(x=>x.RoleEngName));
 
             return msg;
         }
+
 
         #endregion
     }

@@ -34,9 +34,8 @@ namespace TM.Domain.Models
         public int CatalogOrder { get; set; }
 
         [StringLength(200)]
-        [DisplayName("目錄權限碼")]
-        [Required(ErrorMessage = "請輸入目錄權限碼")]
-        [Index("IX_Permission", IsUnique = true)]
+        [DisplayName("Permission")]
+        [Required(ErrorMessage = "請輸入Permission")]
         public string Permission { get; set; }
 
         [DisplayName("是否為選單")]

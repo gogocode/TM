@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TM.Domain.Models;
 using TM.Domain.Services;
+using TM.Web.Attribute;
 
 namespace TM.Web.Controllers
 {
@@ -24,21 +25,6 @@ namespace TM.Web.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        [Authorize]
         public ActionResult Menu()
         {
             List<Catalog> catalogs = new List<Catalog>();

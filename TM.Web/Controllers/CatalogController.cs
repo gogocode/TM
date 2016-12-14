@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TM.Domain.Models;
 using TM.Domain.Services;
 using TM.Domain.ViewModels;
+using TM.Web.Attribute;
 
 namespace TM.Web.Controllers
 {
@@ -19,6 +20,7 @@ namespace TM.Web.Controllers
         }
 
         [HttpGet]
+        [CheckAuth]
         public ActionResult Index()
         {
             CatalogIndexView vm = new CatalogIndexView();
@@ -28,6 +30,7 @@ namespace TM.Web.Controllers
         }
 
         [HttpPost]
+        [CheckAuth]
         public ActionResult CreatePost(CatalogIndexView vm)
         {
             if(ModelState.IsValid)
@@ -39,6 +42,7 @@ namespace TM.Web.Controllers
         }
 
         [HttpPost]
+        [CheckAuth]
         public ActionResult EditPost(Catalog catalog)
         {
             int cnt = _catalogService.Modify(catalog);
@@ -56,6 +60,7 @@ namespace TM.Web.Controllers
         }
 
         [HttpGet]
+        [CheckAuth]
         public ActionResult Delete(int id)
         {
             int cnt = _catalogService.Delete(id);
@@ -74,6 +79,7 @@ namespace TM.Web.Controllers
 
         #region Ajax
         [HttpGet]
+        [CheckAuth]
         public ActionResult Edit(int id)
         {
             Catalog catalog = _catalogService.Find(id);

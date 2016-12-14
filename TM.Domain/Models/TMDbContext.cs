@@ -20,7 +20,6 @@ namespace TM.Domain.Models
         public virtual DbSet<Role> Roles { get; set; } //角色
         public virtual DbSet<Catalog> Catalogs { get; set; } //角色
 
-        public virtual DbSet<User1> User1s { get; set; } //使用者
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
