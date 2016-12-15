@@ -19,6 +19,7 @@ namespace TM.Domain.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DisplayName("角色編號")]
         public int RoleId { get; set; }
 
         [StringLength(30)]

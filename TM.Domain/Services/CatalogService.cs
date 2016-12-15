@@ -56,12 +56,16 @@ namespace TM.Domain.Services
                             }
                         }
                     } 
-                    
                 }
             }
 
             return cnt;
         }
+
+        //public int ModifyRoleCatalogs(int roleId,List<int> selected)
+        //{
+
+        //}
 
         public int Create(Catalog catalog)
         {

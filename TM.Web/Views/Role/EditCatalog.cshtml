@@ -1,0 +1,63 @@
+﻿@using TM.Domain.Models
+@model TM.Domain.ViewModels.RoleEditCatalogView
+
+@{
+    ViewBag.Title = "角色目錄權限";
+}
+
+<link href="~/ThirdParties/maxazan-jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
+
+<div class="row">
+    <h2>
+        @ViewBag.Title
+    </h2>
+</div>
+
+@using (Html.BeginForm("EditCatalogPost","Role",FormMethod.Post,new { role="form"}))
+{
+    @Html.HiddenFor(m => m.RoleId)
+    <table class="table table-striped tree">
+        @foreach (var item in Model.Catalogs.Where(c => c.ParentCatalogId == null))
+        {
+            @PrintCatalog(item)
+        }
+    </table>
+    <div class="form-group">
+        <div class="col-sm-offset-2">
+            <button type="submit" class="btn btn-danger">送出</button>
+        </div>
+    </div>
+}
+
+@helper PrintCatalog(Catalog item)
+{
+    <tr class="treegrid-@item.CatalogId @(item.ParentCatalog != null ? "treegrid-parent-" + @item.ParentCatalogId : "")">
+        <td>
+            <div class="checkbox" style="display: inline">
+                <label>
+                    <input type="checkbox" name="SelectedCatalogIds" value="@item.CatalogId" @(Model.SelectedCatalogIds.Contains(item.CatalogId) ? "checked" : "") /> 
+                    @item.CatalogName
+                </label>
+            </div>
+        </td>
+    </tr>
+
+    foreach (Catalog catalog in item.SubCatalogs.ToList())
+    {
+        @PrintCatalog(catalog)
+    }
+}
+
+@section scripts{
+    <script src="~/ThirdParties/maxazan-jquery-treegrid/js/jquery.treegrid.js"></script>
+    <script src="~/ThirdParties/maxazan-jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.tree').treegrid({
+                initialState: 'expanded',
+                expanderExpandedClass: 'glyphicon glyphicon-minus',
+                expanderCollapsedClass: 'glyphicon glyphicon-plus'
+            });
+        });
+    </script>
+ }

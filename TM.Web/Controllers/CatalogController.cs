@@ -38,7 +38,9 @@ namespace TM.Web.Controllers
                 _catalogService.Create(vm.AddCatalog);
             }
 
-            return RedirectToAction("Index");
+            vm.Catalogs = _catalogService.FindAll();
+
+            return View("Index",vm);
         }
 
         [HttpPost]

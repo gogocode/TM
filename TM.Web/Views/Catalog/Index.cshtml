@@ -10,8 +10,7 @@
 
 <div class="row">
     <h2>
-        目錄維護
-
+        @ViewBag.Title
     </h2>
 </div>
 
@@ -85,14 +84,12 @@
     }
 </div>
 
-
 <div id='MainModal' class='modal'>
     <div class="modal-dialog">
         <div class="modal-content">
             <div id='ShowModalContent'></div>
         </div>
     </div>
-
 </div>
 
 @helper PrintCatalog(Catalog item)
@@ -165,7 +162,6 @@
                         $('#ShowModalContent').html(data);
                         $('#MainModal').modal(options);
                         $('#MainModal').modal('show');
-
                     },
                     error: function () {
                         alert("Dynamic content load failed.");
