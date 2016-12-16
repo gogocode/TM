@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Catalog.cs" />
+    <Compile Include="Models\Diary.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\TMDbContext.cs" />
     <Compile Include="Models\User.cs" />

@@ -15,6 +15,7 @@ namespace TM.Domain.Models
         {
             Roles = new List<Role>();
             Catalogs = new List<Catalog>();
+            Diarys = new List<Diary>();
         }
 
         [Key]
@@ -50,5 +51,6 @@ namespace TM.Domain.Models
 
         public virtual ICollection<Catalog> Catalogs { get; set; }
 
+        public virtual ICollection<Diary> Diarys { get; set; }
     }
 }
