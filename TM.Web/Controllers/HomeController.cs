@@ -20,7 +20,6 @@ namespace TM.Web.Controllers
 
         public ActionResult Index()
         {
-            _userService.Test();
 
             return View();
         }
