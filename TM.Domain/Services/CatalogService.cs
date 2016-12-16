@@ -62,10 +62,29 @@ namespace TM.Domain.Services
             return cnt;
         }
 
-        //public int ModifyRoleCatalogs(int roleId,List<int> selected)
-        //{
+        public int ModifyRoleCatalogs(int roleId, List<int> selectedCatalogIds)
+        {
+            try
+            {
+                Role role = _db.Roles.Where(x => x.RoleId == roleId).FirstOrDefault();
+                List<Catalog> delCatalogs = role.Catalogs.ToList();
 
-        //}
+                List<Catalog> catalogs = _db.Catalogs.Where(x => selectedCatalogIds.Contains(x.CatalogId)).ToList();
+
+                foreach(var delCatalog in delCatalogs)
+                {
+                    role.Catalogs.Remove(delCatalog);
+                }
+
+                role.Catalogs = catalogs;
+                return _db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
 
         public int Create(Catalog catalog)
         {

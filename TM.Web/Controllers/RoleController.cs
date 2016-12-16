@@ -81,23 +81,30 @@ namespace TM.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //[CheckAuth]
-        //public ActionResult EditCatalogPost(RoleEditCatalogView vm)
-        //{
-        //    Role data = rolesService.Find(vm.EditId);
+        [HttpPost]
+        [CheckAuth]
+        public ActionResult EditCatalogPost(RoleEditCatalogView vm)
+        {
+            int cnt = 0;
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        catalogsService.EditCatalogIdListByRoleId(data.RoleId, vm.SelectedCatalogIdList);
-        //        TempData["message"] = "儲存成功";
-        //        return RedirectToAction("Details", new { id = data.RoleId });
-        //    }
+            if (ModelState.IsValid)
+            {
+                cnt = _CatalogService.ModifyRoleCatalogs(vm.RoleId, vm.SelectedCatalogIds);
+            }
 
-        //    vm.ViewModel = data;
-        //    vm.CatalogList = catalogsService.FindAll();
-        //    return View(data);
-        //}
+            if (cnt > 0)
+            {
+                TempData["Message"] = string.Format("{0},{1}", "success", "修改成功");
+            }
+            else
+            {
+                TempData["Message"] = string.Format("{0},{1}", "warning", "修改失敗");
+            }
+
+            vm.Catalogs = _CatalogService.FindAll();
+
+            return View("EditCatalog",vm);
+        }
 
         #region Ajax
         [HttpGet]
