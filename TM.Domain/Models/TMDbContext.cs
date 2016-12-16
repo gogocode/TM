@@ -12,6 +12,10 @@ namespace TM.Domain.Models
     {
         public TMDbContext() : base("name=TMDbConnectionString")
         {
+            // Create the database and tables if it doesn't exist.
+            Database.SetInitializer(new TMDbInitializer());
+            Database.Initialize(true);
+
             //Disable initializer
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TMDbContext, Migrations.Configuration>("TMDbConnectionString"));
         }

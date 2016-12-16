@@ -22,8 +22,8 @@ namespace TM.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            using (TMDbContext db = new TMDbContext())
-                db.Database.Initialize(true);
+            //using (TMDbContext db = new TMDbContext())
+            //    db.Database.Initialize(true);
 
         }
 
