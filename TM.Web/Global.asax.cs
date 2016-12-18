@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using TM.Domain;
 using TM.Domain.Models;
 
 namespace TM.Web
@@ -41,6 +42,7 @@ namespace TM.Web
                 //指派角色到目前這個HttpContext 的User 物件去
                 HttpContext.Current.User = new GenericPrincipal(User.Identity, roles);
                 Thread.CurrentPrincipal = HttpContext.Current.User;
+
             }
         }
     }

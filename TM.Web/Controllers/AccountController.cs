@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using TM.Domain;
 using TM.Domain.Models;
 using TM.Domain.Services;
 using TM.Domain.ViewModels;
@@ -38,7 +39,10 @@ namespace TM.Web.Controllers
             string msg = string.Empty;
             string roles = string.Empty;
 
-            msg = CheckAccount(vm,ref roles);
+
+            User user = _userService.FindUser(vm);
+
+            msg = CheckAccount(user, ref roles);
 
             if (ModelState.IsValid && string.IsNullOrWhiteSpace(msg) )
             {
@@ -58,6 +62,10 @@ namespace TM.Web.Controllers
                 //將資料存入cookies中
                 Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket));
 
+                LoginState.LoginAccount = user.Account;
+                LoginState.LoginUserId = user.UserId;
+                LoginState.LoginUserName = user.UserName;
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -75,12 +83,38 @@ namespace TM.Web.Controllers
         }
         #endregion
 
+        #region 註冊
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterPost(User user)
+        {
+            int cnt = 0;
+
+            if(ModelState.IsValid)
+            {
+                cnt = _userService.Create(user);
+            }
+
+            //註冊成功
+            if(cnt > 0)
+            {
+                TempData["Message"] = string.Format("{0},{1}", "info", "註冊成功");
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(user);
+        }
+        #endregion
+
         #region 私有方法
-        private string CheckAccount(AccountLoginView vm,ref string roles)
+        private string CheckAccount(User user,ref string roles)
         {
             string msg = string.Empty;
-
-            User user = _userService.FindUser(vm);
 
             if(user == null)
             {
@@ -90,8 +124,10 @@ namespace TM.Web.Controllers
             {
                 msg = "帳號未啟動";
             }
-
-            roles = string.Join(",",user.Roles.Select(x=>x.RoleEngName));
+            else
+            { 
+                roles = string.Join(",",user.Roles.Select(x=>x.RoleEngName));
+            }
 
             return msg;
         }

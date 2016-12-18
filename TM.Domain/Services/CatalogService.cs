@@ -97,7 +97,6 @@ namespace TM.Domain.Services
             {
                 throw ex;
             }
-            
         }
 
         public int Modify(Catalog catalog)

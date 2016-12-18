@@ -167,7 +167,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attribute\CheckAuthAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
+    <Compile Include="Controllers\DiaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -225,13 +227,19 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_EditView.cshtml" />
     <Content Include="Views\User\_EditRoleView.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Diary\Index.cshtml" />
+    <Content Include="Views\Diary\_EditView.cshtml" />
+    <Content Include="Views\Diary\LookUserDiary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="ThirdParties\air-datepicker-master\" />
     <Folder Include="ThirdParties\jquery-confirm-master\" />
     <Folder Include="ThirdParties\maxazan-jquery-treegrid\" />
     <Folder Include="ThirdParties\sb-admin-2\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

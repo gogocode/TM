@@ -121,8 +121,8 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            <button type="button" class="EditBtn btn btn-warning btn-xs" data-cid="@item.CatalogId">修改</button>
-            <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-cid="@item.CatalogId">刪除</button>
+            <button type="button" class="EditBtn btn btn-warning btn-xs" data-id="@item.CatalogId">修改</button>
+            <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-id="@item.CatalogId">刪除</button>
         </td>
     </tr>
 
@@ -150,13 +150,13 @@
                     "backdrop": "static",
                     keyboard: true
                 };
-                var cid = $(this).data("cid");
+                var id = $(this).data("id");
 
                 $.ajax({
                     type: "GET",
                     url: editUrl,
                     contentType: "application/json; charset=utf-8",
-                    data: { "id": cid },
+                    data: { "id": id },
                     datatype: "json",
                     success: function (data) {
                         $('#ShowModalContent').html(data);
@@ -177,14 +177,14 @@
             $(".DeleteBtn").click(function () {
                 event.preventDefault();
                 var deleteUrl = '@Url.Action("Delete","Catalog")';
-                var cid = $(this).data("cid");
+                var id = $(this).data("id");
 
                 $.confirm({
                     title: '注意',
                     content: '確定刪除該筆資料?',
                     buttons: {
                         confirm: function () {
-                            location.href = deleteUrl + "?id=" + cid;
+                            location.href = deleteUrl + "?id=" + id;
                         },
                         cancel: function () {
                         },

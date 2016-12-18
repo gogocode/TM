@@ -13,17 +13,17 @@ using TM.Web.Attribute;
 
 namespace TM.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private UserService _UserService;
         private RoleService _RoleService;
-        private Int16 _PageSize;
+        //private Int16 _PageSize;
 
         public UserController()
         {
             _UserService = new UserService();
             _RoleService = new RoleService();
-            _PageSize = WebConfigManager.PageSize;
+            //_PageSize = WebConfigManager.PageSize;
         }
 
         [HttpGet]

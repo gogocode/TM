@@ -1,0 +1,221 @@
+﻿@using PagedList.Mvc
+@using TM.Domain.ViewModels
+
+@model DiaryIndexView
+
+@{
+    ViewBag.Title = "工作日誌";
+}
+
+<link href="~/ThirdParties/maxazan-jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
+<link href="~/ThirdParties/air-datepicker-master/dist/css/datepicker.min.css" rel="stylesheet" />
+<div class="row">
+    <h2>
+        @ViewBag.Title
+    </h2>
+</div>
+
+<div class="well">
+    @using (Html.BeginForm("IndexPost", "Diary", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "SearchModel" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.SearchWorkDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.SearchWorkDate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="查詢">
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row">
+    @using (Html.BeginForm("CreatePost", "Diary", FormMethod.Post))
+    {
+        <table class="table table-hover tree">
+            <tr>
+                <th>
+                    工作日期
+                </th>
+                <th>
+                    項目
+                </th>
+                <th>
+                    內容
+                </th>
+                <th>
+                    時數
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    <input name="AddDiary.WorkDate" type='text' class='form-control datepicker-here' data-language='zh' />
+                    @Html.ValidationMessageFor(model => model.AddDiary.WorkDate, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.AddDiary.Item, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddDiary.Item, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <textarea name="AddDiary.Content" class="form-control" rows="5"></textarea>
+                    @Html.ValidationMessageFor(model => model.AddDiary.Content, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.AddDiary.Hours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddDiary.Hours, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary btn-xs">新增</button>
+                </td>
+            </tr>
+            @{
+                int cnt = 1;
+
+                foreach (var diaryGroups in Model.Diaries)
+                {
+                    string date = @diaryGroups.Key.ToShortDateString();
+
+                    <tr class="treegrid-@cnt">
+                        <td colspan="5" style="background-color:Highlight;">
+                            <label style="color:white">@date</label> 
+                        </td>
+                    </tr>
+                    foreach (var diary in diaryGroups)
+                    {
+                        <tr class="treegrid-parent-@cnt">
+                            <td></td>
+                            <td>
+                                @diary.Item
+                            </td>
+                            <td>
+                                @diary.Content
+                            </td>
+                            <td>
+                                @diary.Hours
+                            </td>
+                            <td>
+                                <button type="button" class="EditBtn btn btn-warning btn-xs" data-id="@diary.DiaryId">修改</button>
+                                <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-id="@diary.DiaryId">刪除</button>
+                            </td>
+                        </tr>
+                    }
+
+                    cnt++;
+                }
+            }
+        </table>
+    }
+</div>
+
+@Html.PagedListPager(Model.Diaries, page => Url.Action("Index", new { page }))
+
+<div id='MainModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='ShowModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/ThirdParties/maxazan-jquery-treegrid/js/jquery.treegrid.js"></script>
+    <script src="~/ThirdParties/maxazan-jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script src="~/ThirdParties/air-datepicker-master/dist/js/datepicker.min.js"></script>
+    <script src="~/ThirdParties/air-datepicker-master/dist/js/i18n/datepicker.zh.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#SearchWorkDate').datepicker({
+                language: 'zh',
+            })
+
+            $('.tree').treegrid({
+                initialState: 'collapsed',
+                expanderExpandedClass: 'glyphicon glyphicon-minus',
+                expanderCollapsedClass: 'glyphicon glyphicon-plus'
+            });
+
+            //編輯
+            $(".EditBtn").click(function () {
+                var editUrl = '@Url.Action("Edit","Diary")';
+                var options = {
+                    "backdrop": "static",
+                    keyboard: true
+                };
+                var id = $(this).data("id");
+
+                $.ajax({
+                    type: "GET",
+                    url: editUrl,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#ShowModalContent').html(data);
+                        $('#MainModal').modal(options);
+                        $('#MainModal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $("#closbtn").click(function () {
+                $('#myModal').modal('hide');
+            });
+
+            //刪除
+            $(".DeleteBtn").click(function () {
+                event.preventDefault();
+                var deleteUrl = '@Url.Action("Delete","Diary")';
+                var id = $(this).data("id");
+
+                $.confirm({
+                    title: '注意',
+                    content: '確定刪除該筆資料?',
+                    buttons: {
+                        confirm: function () {
+                            location.href = deleteUrl + "?id=" + id;
+                        },
+                        cancel: function () {
+                        },
+                    }
+                });
+            });
+
+            $('.pagination>li>a[href]').each(function (i, item) {
+                var page = $(item).attr('href').replace('/Diary?page=', '');
+                $(item).attr('href', '#').click(function () { postPage(page); });
+            });
+        });
+
+        function postPage(page) {
+            var targetFormId = '#SearchModel';
+            if ($(targetFormId).size() > 0) {
+                $('<input>')
+                    .attr({ type: 'hidden', id: 'CurrentPage', name: 'CurrentPage', value: page })
+                    .appendTo($(targetFormId));
+                $(targetFormId).submit();
+            }
+        };
+    </script>
+
+}
+
+
+
+
+
+
+

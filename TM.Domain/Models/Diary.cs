@@ -33,6 +33,12 @@ namespace TM.Domain.Models
         [DisplayName("時數")]
         public Decimal Hours { get; set; }
 
+        [DisplayName("工作日期")]
+        public DateTime WorkDate { get; set; }
+
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
     }
 }

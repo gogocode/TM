@@ -1,0 +1,154 @@
+﻿@using PagedList.Mvc
+@using TM.Domain.ViewModels
+
+@model DiaryLookUserDiaryView
+
+@{
+    ViewBag.Title = "檢視使用者日誌";
+}
+
+<link href="~/ThirdParties/maxazan-jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
+<link href="~/ThirdParties/air-datepicker-master/dist/css/datepicker.min.css" rel="stylesheet" />
+<div class="row">
+    <h2>
+        @ViewBag.Title
+    </h2>
+</div>
+
+<div class="well">
+    @using (Html.BeginForm("LookUserDiaryPost", "Diary", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "SearchModel" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.SearchWorkDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.SearchWorkDate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="查詢">
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <table class="table table-hover tree">
+        <tr>
+            <th>
+                工作日期
+            </th>
+            <th>
+                員工帳號
+            </th>
+            <th>
+                項目
+            </th>
+            <th>
+                內容
+            </th>
+            <th>
+                時數
+            </th>
+            <th></th>
+        </tr>
+        @{
+            int cnt = 1;
+
+            foreach (var diaryGroups in Model.Diaries)
+            {
+                string date = diaryGroups.WorkDate.ToShortDateString();
+
+                <tr class="treegrid-@cnt">
+                    <td colspan="5" style="background-color:Highlight;">
+                        <label style="color:white">@date</label>
+                    </td>
+                </tr>
+                foreach (var diary in diaryGroups.Diaries)
+                {
+                    string employeeId = diary.Key.ToString();
+
+                    <tr class="treegrid-@(cnt+employeeId) treegrid-parent-@cnt">
+                        <td colspan="5" style="background-color:deeppink;">
+                            <label style="color:white">@employeeId</label>
+                        </td>
+                    </tr>
+
+                    foreach (var item in diary)
+                    {
+                        <tr class="treegrid-parent-@(cnt+employeeId)">
+                            <td></td>
+                            <td>
+                                @item.User.Account
+                            </td>
+                            <td>
+                                @item.Item
+                            </td>
+                            <td>
+                                @item.Content
+                            </td>
+                            <td>
+                                @item.Hours
+                            </td>
+                        </tr>
+                    }
+                }
+
+                cnt++;
+            }
+        }
+    </table>
+
+</div>
+
+@Html.PagedListPager(Model.Diaries, page => Url.Action("Index", new { page }))
+
+@section scripts{
+    <script src="~/ThirdParties/maxazan-jquery-treegrid/js/jquery.treegrid.js"></script>
+    <script src="~/ThirdParties/maxazan-jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script src="~/ThirdParties/air-datepicker-master/dist/js/datepicker.min.js"></script>
+    <script src="~/ThirdParties/air-datepicker-master/dist/js/i18n/datepicker.zh.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#SearchWorkDate').datepicker({
+                language: 'zh',
+            })
+
+            $('.tree').treegrid({
+                initialState: 'collapsed',
+                expanderExpandedClass: 'glyphicon glyphicon-minus',
+                expanderCollapsedClass: 'glyphicon glyphicon-plus'
+            });
+
+            $('.pagination>li>a[href]').each(function (i, item) {
+                var page = $(item).attr('href').replace('/Diary?page=', '');
+                $(item).attr('href', '#').click(function () { postPage(page); });
+            });
+        });
+
+        function postPage(page) {
+            var targetFormId = '#SearchModel';
+            if ($(targetFormId).size() > 0) {
+                $('<input>')
+                    .attr({ type: 'hidden', id: 'CurrentPage', name: 'CurrentPage', value: page })
+                    .appendTo($(targetFormId));
+                $(targetFormId).submit();
+            }
+        };
+    </script>
+
+}
+
+
+
+
+
+
+

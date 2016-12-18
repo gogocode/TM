@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.well{
+    background: rgba(225, 235, 245, 1);
+}

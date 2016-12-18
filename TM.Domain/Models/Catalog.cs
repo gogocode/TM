@@ -30,7 +30,6 @@ namespace TM.Domain.Models
         public string CatalogName { get; set; }
 
         [DisplayName("目錄排序")]
-        [Required(ErrorMessage = "請輸入目錄排序")]
         public int CatalogOrder { get; set; }
 
         [StringLength(200)]

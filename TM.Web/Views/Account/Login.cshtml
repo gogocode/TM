@@ -70,7 +70,8 @@
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">登入</button>
-                                    <button type="button" class="btn btn-info">註冊</button>
+                                    @*<button type="button" class="btn btn-info">註冊</button>*@
+                                    @Html.ActionLink("註冊","Register",null,new { @class= "btn btn-info" })
                                 </div>
                             </fieldset>
                         }

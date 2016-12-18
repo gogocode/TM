@@ -23,9 +23,15 @@ namespace TM.Domain.Models
         public int UserId { get; set; }
 
         [StringLength(30)]
-        [DisplayName("使用者名稱")]
-        [Required(ErrorMessage = "請輸入使用者名稱")]
+        [DisplayName("使用者中文名稱")]
+        [Required(ErrorMessage = "請輸入使用者中文名稱")]
         public string UserName { get; set; }
+
+        [StringLength(10)]
+        [DisplayName("員工編號")]
+        [Required(ErrorMessage = "請輸入員工編號")]
+        [Index("IX_EmployeeId", IsUnique = true)]
+        public string EmployeeId { get; set; }
 
         [StringLength(20)]
         [DisplayName("使用者帳號")]
@@ -35,6 +41,7 @@ namespace TM.Domain.Models
 
         [StringLength(50)]
         [DisplayName("使用者密碼")]
+        [Required(ErrorMessage = "請輸入使用者密碼")]
         public string Password { get; set; }
 
         [StringLength(50)]

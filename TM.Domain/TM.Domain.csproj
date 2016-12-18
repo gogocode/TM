@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginState.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Manager\WebConfigManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -69,10 +70,14 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CatalogService.cs" />
+    <Compile Include="Services\DiaryService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
+    <Compile Include="ViewModels\Diary\DiaryGroup.cs" />
+    <Compile Include="ViewModels\Diary\DiaryIndexView.cs" />
+    <Compile Include="ViewModels\Diary\DiaryLookUserDiaryView.cs" />
     <Compile Include="ViewModels\Role\RoleEditCatalogView.cs" />
     <Compile Include="ViewModels\Role\RoleIndexView.cs" />
     <Compile Include="ViewModels\User\UserEditRoleView.cs" />
