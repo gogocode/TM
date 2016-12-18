@@ -107,7 +107,7 @@ namespace TM.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(user);
+            return View("Register",user);
         }
         #endregion
 

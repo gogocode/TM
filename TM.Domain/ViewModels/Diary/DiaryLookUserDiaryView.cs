@@ -12,9 +12,7 @@ namespace TM.Domain.ViewModels
     public class DiaryLookUserDiaryView
     {
         [DisplayName("工作日期")]
-        public DateTime? SearchWorkDate { get; set; }
-
-        public Diary AddDiary { get; set; }
+        public string SearchWorkDate { get; set; }
 
         public IPagedList<DiaryGroup> Diaries { get; set; }
 

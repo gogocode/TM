@@ -114,6 +114,15 @@ namespace TM.Web.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        [CheckAuth]
+        public ActionResult LookUserDiaryPost(DiaryLookUserDiaryView vm)
+        {
+            vm.Diaries = _DiaryService.FindGroupByUserId(vm.SearchWorkDate, 0, 1, _PageSize);
+
+            return View("LookUserDiary", vm);
+        }
+
         #region Ajax
         [HttpGet]
         [CheckAuth]

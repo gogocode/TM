@@ -47,6 +47,9 @@
                     @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Account)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Users.FirstOrDefault().EmployeeId)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Password)
                 </th>
                 <th>
@@ -61,18 +64,27 @@
             <tr>
                 <td>
                     @Html.EditorFor(model => model.AddUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddUser.UserName, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     @Html.EditorFor(model => model.AddUser.Account, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddUser.Account, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.AddUser.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddUser.EmployeeId, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     @Html.EditorFor(model => model.AddUser.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddUser.Password, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     @Html.EditorFor(model => model.AddUser.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddUser.Email, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     @Html.EditorFor(model => model.AddUser.IsActive)
+                    @Html.ValidationMessageFor(model => model.AddUser.IsActive, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     <button type="submit" class="btn btn-primary btn-xs">新增</button>
@@ -87,6 +99,9 @@
                     </td>
                     <td>
                         @item.Account
+                    </td>
+                    <td>
+                        @item.EmployeeId
                     </td>
                     <td>
                         @item.Password

@@ -64,7 +64,7 @@
             {
                 string date = diaryGroups.WorkDate.ToShortDateString();
 
-                <tr class="treegrid-@cnt">
+                <tr class="treegrid-@cnt level1">
                     <td colspan="5" style="background-color:Highlight;">
                         <label style="color:white">@date</label>
                     </td>
@@ -119,6 +119,9 @@
 
             $('#SearchWorkDate').datepicker({
                 language: 'zh',
+                range: true,
+                multipleDatesSeparator: "-",
+                dateFormat:"yyyy/mm/dd"
             })
 
             $('.tree').treegrid({
@@ -126,6 +129,8 @@
                 expanderExpandedClass: 'glyphicon glyphicon-minus',
                 expanderCollapsedClass: 'glyphicon glyphicon-plus'
             });
+
+            $(".level1").treegrid('expand');
 
             $('.pagination>li>a[href]').each(function (i, item) {
                 var page = $(item).attr('href').replace('/Diary?page=', '');
