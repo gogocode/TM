@@ -44,5 +44,11 @@ namespace TM.Web.Controllers
             return PartialView(catalogsByDistinc);
         }
 
+        public ActionResult ProfileMenu()
+        {
+            return PartialView();
+
+        }
+
     }
 }

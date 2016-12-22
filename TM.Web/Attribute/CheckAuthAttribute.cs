@@ -38,7 +38,7 @@ namespace TM.Web.Attribute
                 return false;
             }
 
-            bool isValid = _CatalogService.IsValidPermissionByRoles(httpContext.User.Identity.Name, controllerName, actionName) > 0;
+            bool isValid = Auth.IsValidPermissionByRoles(httpContext.User.Identity.Name, controllerName, actionName) > 0;
 
             if(LoginState.LoginUserId == 0)
             {

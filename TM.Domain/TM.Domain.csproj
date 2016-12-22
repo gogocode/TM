@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\Auth.cs" />
     <Compile Include="LoginState.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Manager\WebConfigManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Catalog.cs" />

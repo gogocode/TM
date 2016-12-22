@@ -71,7 +71,10 @@
                     @Html.EditorFor(model => model.AddCatalog.Comment, new { htmlAttributes = new { @class = "form-control" } })
                 </th>
                 <th>
-                    <button type="submit" class="btn btn-primary btn-xs">新增</button>
+                    @if(Auth.IsShow("Catalog/Create"))
+                    {
+                        <button type="submit" class="btn btn-primary btn-xs">新增</button>
+                    }
                 </th>
             </tr>
 
@@ -121,13 +124,19 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            <button type="button" class="EditBtn btn btn-warning btn-xs" data-id="@item.CatalogId">修改</button>
-            <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-id="@item.CatalogId">刪除</button>
+            @if(Auth.IsShow("Catalog/Edit"))
+            { 
+                <button type="button" class="EditBtn btn btn-warning btn-xs" data-id="@item.CatalogId">修改</button>
+            }
+            @if(Auth.IsShow("Catalog/Delete"))
+            { 
+                <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-id="@item.CatalogId">刪除</button>
+            }
         </td>
     </tr>
 
-    foreach (Catalog catalog in item.SubCatalogs.ToList())
-    {
+foreach (Catalog catalog in item.SubCatalogs.ToList())
+{
             @PrintCatalog(catalog)
     }
 }
@@ -191,7 +200,6 @@
                     }
                 });
             });
-
         });
     </script>
 }

@@ -11,27 +11,8 @@
         </button>
         <a href="@Url.Action("Index", "Account")" class="navbar-brand">工作管理系統(TM)</a>
     </div>
-
-    @*上方選單*@
-    <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li>
-                    <a href="@Url.Action("Profile", "Account")"><i class="fa fa-user fa-fw"></i> 個人資料</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("ChangePassword", "Account")"><i class="fa fa-gear fa-fw"></i> 密碼變更</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+    
+    @Html.Action("ProfileMenu", "Home")
 
     @*左側選單*@
     <div class="navbar-default sidebar" role="navigation">
