@@ -83,6 +83,14 @@ namespace TM.Domain.Models
                     new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Role/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                     new Catalog { CatalogName = "角色目錄權限", CatalogOrder = 5, Permission = "Role/EditCatalog,EditCatalogPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
+
+
+                //匯入管理
+                catalogLevel01 = new Catalog { CatalogName = "匯入管理", CatalogOrder = 1, Permission = "Export/Index", IsMenu = true, Comment = "", IconClass = "glyphicon glyphicon-export", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, adminRole } };
+                db.Catalogs.Add(catalogLevel01);
+                new List<Catalog> {
+                    new Catalog { CatalogName = "匯入工作日誌", CatalogOrder = 1, Permission = "Export/Diary,DiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
+                }.ForEach(o => db.Catalogs.Add(o));
                 #endregion
 
                 db.SaveChanges();
