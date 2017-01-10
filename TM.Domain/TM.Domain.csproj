@@ -99,6 +99,8 @@
     <Compile Include="ViewModels\Diary\DiaryGroup.cs" />
     <Compile Include="ViewModels\Diary\DiaryIndexView.cs" />
     <Compile Include="ViewModels\Diary\DiaryLookUserDiaryView.cs" />
+    <Compile Include="ViewModels\Export\ToKantOrderShopeeDetail.cs" />
+    <Compile Include="ViewModels\Export\ToKantOrderShopeeView.cs" />
     <Compile Include="ViewModels\Role\RoleEditCatalogView.cs" />
     <Compile Include="ViewModels\Role\RoleIndexView.cs" />
     <Compile Include="ViewModels\User\UserEditRoleView.cs" />
