@@ -14,6 +14,9 @@ namespace TM.Domain.ViewModels
         [DisplayName("工作日期")]
         public string SearchWorkDate { get; set; }
 
+        [DisplayName("員工姓名")]
+        public string EmployeeId { get; set; }
+
         public IPagedList<DiaryGroup> Diaries { get; set; }
 
         public int CurrentPage { get; set; }

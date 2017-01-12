@@ -24,7 +24,7 @@ namespace TM.Domain.Services
             return _db.Diaries.Where(x => x.DiaryId == id).FirstOrDefault();
         }
 
-        public IPagedList<IGrouping<DateTime,Diary>> FindByUserId(DateTime? searchDate, int userId, int currentPage, int pageSize)
+        public IPagedList<IGrouping<DateTime,Diary>> FindByUserId(string searchDate, int userId, int currentPage, int pageSize)
         {
             currentPage = currentPage < 1 ? 1 : currentPage;
 
@@ -35,9 +35,22 @@ namespace TM.Domain.Services
                 diaries = diaries.Where(x => x.UserId == userId);
             }
 
-            if (searchDate != null)
+            if (!string.IsNullOrWhiteSpace(searchDate))
             {
-                diaries = diaries.Where(x => x.WorkDate == searchDate);
+                if (searchDate.Contains("-"))
+                {
+                    string[] Dates = searchDate.Split('-');
+                    DateTime sDate = DateTime.Parse(Dates[0]);
+                    DateTime eDate = DateTime.Parse(Dates[1]);
+
+                    diaries = diaries.Where(x => x.WorkDate >= sDate && x.WorkDate <= eDate);
+                }
+                else
+                {
+                    DateTime sDate = DateTime.Parse(searchDate);
+
+                    diaries = diaries.Where(x => x.WorkDate == sDate);
+                }
             }
 
             var diariesGroups = from d in diaries
@@ -48,7 +61,7 @@ namespace TM.Domain.Services
             return diariesGroups.ToPagedList(currentPage, pageSize);
         }
 
-        public IPagedList<DiaryGroup> FindGroupByUserId(string searchDate,int userId, int currentPage, int pageSize)
+        public IPagedList<DiaryGroup> FindGroupByUserId(string searchDate,string employeeId,int userId, int currentPage, int pageSize)
         {
             currentPage = currentPage < 1 ? 1 : currentPage;
 
@@ -75,6 +88,11 @@ namespace TM.Domain.Services
 
                     diaries = diaries.Where(x => x.WorkDate == sDate);
                 }
+            }
+
+            if(!String.IsNullOrWhiteSpace(employeeId))
+            {
+                diaries = diaries.Where(x => x.User.EmployeeId == employeeId);
             }
 
             var diariesGroups = from d in diaries

@@ -66,7 +66,7 @@
                     @Html.ValidationMessageFor(model => model.AddDiary.Item, "", new { @class = "text-danger" })
                 </td>
                 <td>
-                    <textarea name="AddDiary.Content" class="form-control" rows="5"></textarea>
+                    <textarea name="AddDiary.Content" class="form-control" rows="5" ></textarea>
                     @Html.ValidationMessageFor(model => model.AddDiary.Content, "", new { @class = "text-danger" })
                 </td>
                 <td>
@@ -100,7 +100,7 @@
                                 @diary.Item
                             </td>
                             <td>
-                                @diary.Content
+                                <textarea name="AddDiary.Content" class="form-control" rows="5" readonly="readonly">@diary.Content</textarea>
                             </td>
                             <td>
                                 @diary.Hours
@@ -146,6 +146,9 @@
 
             $('#SearchWorkDate').datepicker({
                 language: 'zh',
+                range: true,
+                multipleDatesSeparator: "-",
+                dateFormat: "yyyy/mm/dd"
             })
 
             $('.tree').treegrid({

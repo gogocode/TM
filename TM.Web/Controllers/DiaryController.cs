@@ -63,7 +63,7 @@ namespace TM.Web.Controllers
 
             vm.Diaries = _DiaryService.FindByUserId(null,LoginState.LoginUserId, 1, _PageSize);
 
-            return View("Index", vm);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -109,7 +109,7 @@ namespace TM.Web.Controllers
         {
             DiaryLookUserDiaryView vm = new DiaryLookUserDiaryView();
 
-            vm.Diaries = _DiaryService.FindGroupByUserId(null, 0, 1, _PageSize);
+            vm.Diaries = _DiaryService.FindGroupByUserId(null,null, 0, 1, _PageSize);
 
             return View(vm);
         }
@@ -118,7 +118,7 @@ namespace TM.Web.Controllers
         [CheckAuth]
         public ActionResult LookUserDiaryPost(DiaryLookUserDiaryView vm)
         {
-            vm.Diaries = _DiaryService.FindGroupByUserId(vm.SearchWorkDate, 0, 1, _PageSize);
+            vm.Diaries = _DiaryService.FindGroupByUserId(vm.SearchWorkDate,vm.EmployeeId, 0, 1, _PageSize);                                         
 
             return View("LookUserDiary", vm);
         }

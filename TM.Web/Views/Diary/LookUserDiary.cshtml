@@ -9,6 +9,7 @@
 
 <link href="~/ThirdParties/maxazan-jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
 <link href="~/ThirdParties/air-datepicker-master/dist/css/datepicker.min.css" rel="stylesheet" />
+
 <div class="row">
     <h2>
         @ViewBag.Title
@@ -16,7 +17,8 @@
 </div>
 
 <div class="well">
-    @using (Html.BeginForm("LookUserDiaryPost", "Diary", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "SearchModel" }))
+    @using (Html.BeginForm("LookUserDiaryPost", "Diary", FormMethod.Post, new { @class = "form-horizontal", role = "form"
+        , id = "SearchModel" }))
     {
         @Html.AntiForgeryToken()
 
@@ -25,6 +27,14 @@
                 @Html.LabelFor(model => model.SearchWorkDate, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.SearchWorkDate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownEmployeeInfo(model=>model.EmployeeId)
                 </div>
             </div>
         </div>
@@ -44,7 +54,7 @@
                 工作日期
             </th>
             <th>
-                員工帳號
+                員工姓名
             </th>
             <th>
                 項目
@@ -84,13 +94,13 @@
                         <tr class="treegrid-parent-@(cnt+employeeId)">
                             <td></td>
                             <td>
-                                @item.User.Account
+                                @item.User.UserName
                             </td>
                             <td>
                                 @item.Item
                             </td>
                             <td>
-                                @item.Content
+                                <textarea name="AddDiary.Content" class="form-control" rows="5" readonly="readonly">@item.Content</textarea>
                             </td>
                             <td>
                                 @item.Hours

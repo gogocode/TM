@@ -113,7 +113,7 @@
                         @item.Email
                     </td>
                     <td>
-                        <input type="checkbox" checked="@(item.IsActive ? "checked" : "")" disabled="disabled" />
+                        <input type="checkbox" @(item.IsActive ? "checked" : "") disabled="disabled" />
                     </td>
                     <td>
                         @if (Auth.IsShow("User/Edit"))
