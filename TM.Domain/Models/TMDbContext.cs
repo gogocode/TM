@@ -24,6 +24,7 @@ namespace TM.Domain.Models
         public virtual DbSet<Role> Roles { get; set; } //角色
         public virtual DbSet<Catalog> Catalogs { get; set; } //角色
         public virtual DbSet<Diary> Diaries { get; set; } //工作日誌
+        public virtual DbSet<Item> Items { get; set; } //項目
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

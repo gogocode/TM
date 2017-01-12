@@ -84,6 +84,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\Diary.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\TMDbContext.cs" />
     <Compile Include="Models\TMDbInitializer.cs" />
@@ -92,12 +93,14 @@
     <Compile Include="Services\CatalogService.cs" />
     <Compile Include="Services\DiaryService.cs" />
     <Compile Include="Services\ImportService.cs" />
+    <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
     <Compile Include="ViewModels\Diary\DiaryGroup.cs" />
     <Compile Include="ViewModels\Diary\DiaryIndexView.cs" />
+    <Compile Include="ViewModels\Diary\DiaryItemView.cs" />
     <Compile Include="ViewModels\Diary\DiaryLookUserDiaryView.cs" />
     <Compile Include="ViewModels\Export\ToKantOrderShopeeDetail.cs" />
     <Compile Include="ViewModels\Export\ToKantOrderShopeeView.cs" />

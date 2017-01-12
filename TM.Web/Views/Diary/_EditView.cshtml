@@ -1,6 +1,17 @@
 ﻿@using TM.Domain.Models
 @model Diary
 
+<script>
+    $(document).ready(function () {
+        //項目
+        $(".ItemBtn").click(function () {
+            var itemName = $(this).data("id");
+
+            $(this).parent().parent().parent().parent().children().filter('input').val(itemName);
+        });
+    });
+</script>
+
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h4 class="modal-title" id="myModalLabel">修改工作日誌</h4>
@@ -27,7 +38,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "control-label col-sm-4" })
             <div class="col-sm-6">
-                @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownItem(model => model.Item)
+                @*@Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
             </div>
         </div>

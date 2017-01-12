@@ -60,6 +60,7 @@ namespace TM.Domain.Models
                     new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Diary/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole , generalRole } },
                     new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Diary/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole , generalRole } },
                     new Catalog { CatalogName = "檢視使用者日誌", CatalogOrder = 5, Permission = "Diary/LookUserDiary,LookUserDiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "項目管理", CatalogOrder = 6, Permission = "Diary/ItemIndex,ItemCreate,ItemEdit,ItemDelete", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole , generalRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
 
                 //使用者管理
@@ -91,6 +92,20 @@ namespace TM.Domain.Models
                 new List<Catalog> {
                     new Catalog { CatalogName = "匯入工作日誌", CatalogOrder = 1, Permission = "Export/Diary,DiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, adminRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
+
+                #endregion
+
+                #region 項目
+                new List<Item>
+                {
+                    new Item {ItemName = "cbdm跨境直郵" },
+                    new Item {ItemName = "slot員購系統" },
+                    new Item {ItemName = "ntms新品系統" },
+                    new Item {ItemName = "pk撿貨系統" },
+                    new Item {ItemName = "tm工作管理系統" },
+                    new Item {ItemName = "會議時間" },
+                    new Item {ItemName = "slot權限管理" },
+                }.ForEach(o => db.Items.Add(o));
                 #endregion
 
                 db.SaveChanges();

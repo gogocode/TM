@@ -9,6 +9,7 @@
 
 <link href="~/ThirdParties/maxazan-jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
 <link href="~/ThirdParties/air-datepicker-master/dist/css/datepicker.min.css" rel="stylesheet" />
+
 <div class="row">
     <h2>
         @ViewBag.Title
@@ -62,7 +63,7 @@
                     @Html.ValidationMessageFor(model => model.AddDiary.WorkDate, "", new { @class = "text-danger" })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.AddDiary.Item, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownItem(model => model.AddDiary.Item)
                     @Html.ValidationMessageFor(model => model.AddDiary.Item, "", new { @class = "text-danger" })
                 </td>
                 <td>
@@ -210,6 +211,14 @@
                 var page = $(item).attr('href').replace('/Diary?page=', '');
                 $(item).attr('href', '#').click(function () { postPage(page); });
             });
+
+            //項目
+            $(".ItemBtn").click(function () {
+                var itemName = $(this).data("id");
+
+                $(this).parent().parent().parent().parent().children().filter('input').val(itemName);
+            });
+
         });
 
         function postPage(page) {
@@ -221,8 +230,8 @@
                 $(targetFormId).submit();
             }
         };
-    </script>
 
+    </script>
 }
 
 

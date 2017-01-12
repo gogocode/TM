@@ -198,6 +198,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EmployeeInfoHelper.cs" />
+    <Compile Include="Helpers\ItemHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +320,8 @@
     <Content Include="Views\Diary\LookUserDiary.cshtml" />
     <Content Include="Views\Home\ProfileMenu.cshtml" />
     <Content Include="Views\Export\Diary.cshtml" />
+    <Content Include="Views\Diary\ItemIndex.cshtml" />
+    <Content Include="Views\Diary\_ItemEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,6 +24,11 @@ namespace TM.Domain.Services
             return _db.Diaries.Where(x => x.DiaryId == id).FirstOrDefault();
         }
 
+        public Item FindItem(int id)
+        {
+            return _db.Items.Where(x => x.ItemId == id).FirstOrDefault();
+        }
+
         public IPagedList<IGrouping<DateTime,Diary>> FindByUserId(string searchDate, int userId, int currentPage, int pageSize)
         {
             currentPage = currentPage < 1 ? 1 : currentPage;
@@ -109,6 +114,7 @@ namespace TM.Domain.Services
             return diariesGroups.ToPagedList(currentPage, pageSize);
         }
 
+
         public int Create(Diary diary)
         {
             try
@@ -148,5 +154,6 @@ namespace TM.Domain.Services
                 throw ex;
             }
         }
+
     }
 }

@@ -1,0 +1,141 @@
+﻿@using TM.Domain.ViewModels
+
+@model DiaryItemView
+
+@{
+    ViewBag.Title = "項目管理";
+}
+
+<div class="row">
+    <h2>
+        @ViewBag.Title
+    </h2>
+</div>
+
+<div class="row">
+    @using (Html.BeginForm("ItemCreate", "Diary", FormMethod.Post))
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ItemName)
+                </th>
+            </tr>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    @Html.EditorFor(model => model.AddItem.ItemName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddItem.ItemName, "", new { @class = "text-danger" })
+                </th>
+                <th>
+                    @if (Auth.IsShow("Diary/ItemCreate"))
+                    {
+                        <button type="submit" class="btn btn-primary btn-xs">新增</button>
+                    }
+                </th>
+            </tr>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(x => item.ItemId)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(x => item.ItemName)
+                    </th>
+                    <th>
+                        @if (Auth.IsShow("Diary/ItemEdit"))
+                        {
+                            <button type="button" class="EditBtn btn btn-warning btn-xs" data-id="@item.ItemId">修改</button>
+                        }
+                        @if (Auth.IsShow("Diary/ItemDelete"))
+                        {
+                            <button type="button" class="DeleteBtn btn btn-danger btn-xs" data-id="@item.ItemId">刪除</button>
+                        }
+                    </th>
+                </tr>
+            }
+
+        </table>
+    }
+</div>
+
+<div id='MainModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='ShowModalContent'></div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            //編輯
+            $(".EditBtn").click(function(){
+                var editUrl = '@Url.Action("ItemEdit", "Diary")';
+                var options = {
+                    "backdrop": "static",
+                    keyboard: true
+                };
+                var id = $(this).data("id");
+
+                $.ajax({
+                    type: "GET",
+                    url: editUrl,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#ShowModalContent').html(data);
+                        $('#MainModal').modal(options);
+                        $('#MainModal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $("#closbtn").click(function () {
+                $('#myModal').modal('hide');
+            });
+
+            //刪除
+            $(".DeleteBtn").click(function () {
+                event.preventDefault();
+                var deleteUrl = '@Url.Action("ItemDelete","Diary")';
+                var id = $(this).data("id");
+
+                $.confirm({
+                    title: '注意',
+                    content: '確定刪除該筆資料?',
+                    buttons: {
+                        confirm: function () {
+                            location.href = deleteUrl + "?id=" + id;
+                        },
+                        cancel: function () {
+                        },
+                    }
+                });
+            });
+
+            //修改目錄權限
+            $(".EditCatalogBtn").click(function () {
+                var editCatalogUrl = '@Url.Action("EditCatalog", "Role")';
+                var id = $(this).data("id");
+
+                location.href = editCatalogUrl + "?id=" + id;
+            });
+
+        });
+    </script>
+}
+
+
+

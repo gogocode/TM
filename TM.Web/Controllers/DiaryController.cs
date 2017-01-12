@@ -14,19 +14,22 @@ namespace TM.Web.Controllers
     public class DiaryController : BaseController
     {
         private DiaryService _DiaryService;
+        private ItemService _ItemService;
 
         public DiaryController()
         {
             _DiaryService = new DiaryService();
+            _ItemService = new ItemService();
         }
 
+        #region 查詢
         [HttpGet]
         [CheckAuth]
         public ActionResult Index()
         {
             DiaryIndexView vm = new DiaryIndexView();
 
-            vm.Diaries = _DiaryService.FindByUserId(null,LoginState.LoginUserId, 1, _PageSize);
+            vm.Diaries = _DiaryService.FindByUserId(null, LoginState.LoginUserId, 1, _PageSize);
 
             return View(vm);
         }
@@ -35,11 +38,13 @@ namespace TM.Web.Controllers
         [CheckAuth]
         public ActionResult IndexPost(DiaryIndexView vm)
         {
-            vm.Diaries = _DiaryService.FindByUserId(vm.SearchWorkDate,LoginState.LoginUserId, vm.CurrentPage, _PageSize);
+            vm.Diaries = _DiaryService.FindByUserId(vm.SearchWorkDate, LoginState.LoginUserId, vm.CurrentPage, _PageSize);
 
             return View("Index", vm);
         }
+        #endregion
 
+        #region 新增
         [HttpPost]
         [CheckAuth]
         public ActionResult CreatePost(DiaryIndexView vm)
@@ -61,10 +66,13 @@ namespace TM.Web.Controllers
                 }
             }
 
-            vm.Diaries = _DiaryService.FindByUserId(null,LoginState.LoginUserId, 1, _PageSize);
+            vm.Diaries = _DiaryService.FindByUserId(null, LoginState.LoginUserId, 1, _PageSize);
 
             return RedirectToAction("Index");
         }
+        #endregion
+
+        #region 編輯
 
         [HttpPost]
         [CheckAuth]
@@ -84,7 +92,9 @@ namespace TM.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region 刪除
         [HttpGet]
         [CheckAuth]
         public ActionResult Delete(int id)
@@ -102,14 +112,16 @@ namespace TM.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region 檢視使用者日誌
         [HttpGet]
         [CheckAuth]
         public ActionResult LookUserDiary()
         {
             DiaryLookUserDiaryView vm = new DiaryLookUserDiaryView();
 
-            vm.Diaries = _DiaryService.FindGroupByUserId(null,null, 0, 1, _PageSize);
+            vm.Diaries = _DiaryService.FindGroupByUserId(null, null, 0, 1, _PageSize);
 
             return View(vm);
         }
@@ -118,10 +130,82 @@ namespace TM.Web.Controllers
         [CheckAuth]
         public ActionResult LookUserDiaryPost(DiaryLookUserDiaryView vm)
         {
-            vm.Diaries = _DiaryService.FindGroupByUserId(vm.SearchWorkDate,vm.EmployeeId, 0, 1, _PageSize);                                         
+            vm.Diaries = _DiaryService.FindGroupByUserId(vm.SearchWorkDate, vm.EmployeeId, 0, 1, _PageSize);
 
             return View("LookUserDiary", vm);
         }
+        #endregion
+
+        #region 項目管理
+        [HttpGet]
+        [CheckAuth]
+        public ActionResult ItemIndex()
+        {
+            DiaryItemView vm = new DiaryItemView();
+            vm.Items = _ItemService.FindAll();
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [CheckAuth]
+        public ActionResult ItemCreate(DiaryItemView vm)
+        {
+            int cnt = 0;
+
+            if (ModelState.IsValid)
+            {
+                cnt = _ItemService.Create(vm.AddItem);
+
+                if (cnt > 0)
+                {
+                    TempData["Message"] = string.Format("{0},{1}", "success", "新增成功");
+                }
+                else
+                {
+                    TempData["Message"] = string.Format("{0},{1}", "warning", "新增失敗");
+                }
+            }
+
+            return RedirectToAction("ItemIndex");
+        }
+
+        [HttpPost]
+        [CheckAuth]
+        public ActionResult ItemEdit(Item item)
+        {
+            int cnt = _ItemService.Modify(item);
+
+            if (cnt > 0)
+            {
+                TempData["Message"] = string.Format("{0},{1}", "success", "修改成功");
+            }
+            else
+            {
+                TempData["Message"] = string.Format("{0},{1}", "warning", "修改失敗");
+            }
+
+            return RedirectToAction("ItemIndex");
+        }
+
+        [HttpGet]
+        [CheckAuth]
+        public ActionResult ItemDelete(int id)
+        {
+            int cnt = _ItemService.Delete(id);
+
+            if (cnt > 0)
+            {
+                TempData["Message"] = string.Format("{0},{1}", "success", "刪除成功");
+            }
+            else
+            {
+                TempData["Message"] = string.Format("{0},{1}", "warning", "刪除失敗");
+            }
+
+            return RedirectToAction("ItemIndex");
+        }
+        #endregion
 
         #region Ajax
         [HttpGet]
@@ -131,6 +215,15 @@ namespace TM.Web.Controllers
             Diary diary = _DiaryService.Find(id);
 
             return PartialView("_EditView", diary);
+        }
+
+        [HttpGet]
+        [CheckAuth]
+        public ActionResult ItemEdit(int id)
+        {
+            Item diary = _ItemService.Find(id);
+
+            return PartialView("_ItemEditView", diary);
         }
         #endregion
     }
