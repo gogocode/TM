@@ -98,10 +98,12 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
+    <Compile Include="ViewModels\Chart\DiaryChartView.cs" />
     <Compile Include="ViewModels\Diary\DiaryGroup.cs" />
     <Compile Include="ViewModels\Diary\DiaryIndexView.cs" />
     <Compile Include="ViewModels\Diary\DiaryItemView.cs" />
     <Compile Include="ViewModels\Diary\DiaryLookUserDiaryView.cs" />
+    <Compile Include="ViewModels\Diary\JobWeightChart.cs" />
     <Compile Include="ViewModels\Export\ToKantOrderShopeeDetail.cs" />
     <Compile Include="ViewModels\Export\ToKantOrderShopeeView.cs" />
     <Compile Include="ViewModels\Role\RoleEditCatalogView.cs" />

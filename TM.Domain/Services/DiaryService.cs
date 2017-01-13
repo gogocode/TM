@@ -24,6 +24,11 @@ namespace TM.Domain.Services
             return _db.Diaries.Where(x => x.DiaryId == id).FirstOrDefault();
         }
 
+        public List<Diary> FindByUserId(int userId)
+        {
+           return _db.Diaries.Where(x => x.UserId == userId).ToList();
+        }
+
         public Item FindItem(int id)
         {
             return _db.Items.Where(x => x.ItemId == id).FirstOrDefault();
@@ -107,13 +112,44 @@ namespace TM.Domain.Services
                                 {
                                     WorkDate = grp.Key,
                                     Diaries = (from k in grp
-                                              group k by k.User.EmployeeId into grp2
-                                              select grp2).ToList()
+                                               group k by k.User.EmployeeId into grp2
+                                               select grp2).ToList()
                                 };
 
             return diariesGroups.ToPagedList(currentPage, pageSize);
         }
 
+        //工作統計圖表
+        public JobWeightChart FindJobWeightData(string year, string month, int userId)
+        {
+            JobWeightChart chart = new JobWeightChart();
+
+            List<Diary> diaryLogs = FindByMonth(year, month, userId);
+            var diariesGroup = from q in diaryLogs
+                                group q by q.Item into g
+                                select new
+                                {
+                                    Item = g.Key,
+                                    ItemSum = g.Select(x => x.Hours).Sum()
+                                };
+
+            chart.Legend = diariesGroup.Select(x => x.Item).ToList();
+            chart.Series = diariesGroup.Select(x => new Series
+            {
+                value = x.ItemSum,
+                name = x.Item
+            }).ToList();
+
+            return chart;
+        }
+
+        public List<Diary> FindByMonth(string year, string month, int userId)
+        {
+            List<Diary> diaries = FindByUserId(userId);
+            diaries = diaries.Where(x => x.WorkDate.Year == int.Parse(year) && x.WorkDate.Month == int.Parse(month)).ToList();
+
+            return diaries;
+        }
 
         public int Create(Diary diary)
         {

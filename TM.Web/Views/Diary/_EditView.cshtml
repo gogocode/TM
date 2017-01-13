@@ -30,7 +30,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WorkDate, htmlAttributes: new { @class = "control-label col-sm-4" })
             <div class="col-sm-6">
-                @*@Html.EditorFor(model => model.WorkDate.ToShortDateString(), new { htmlAttributes = new { @class = "form-control datepicker-here" } })*@
                 <input id="WorkDate" name="WorkDate" type='text' class='form-control datepicker-here' value="@Model.WorkDate.ToShortDateString()" />
                 @Html.ValidationMessageFor(model => model.WorkDate, "", new { @class = "text-danger" })
             </div>
@@ -39,7 +38,6 @@
             @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "control-label col-sm-4" })
             <div class="col-sm-6">
                 @Html.DropDownItem(model => model.Item)
-                @*@Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
             </div>
         </div>
