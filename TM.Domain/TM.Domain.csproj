@@ -86,6 +86,7 @@
     <Compile Include="Models\Diary.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\SlotFuncAuthRecord.cs" />
     <Compile Include="Models\TMDbContext.cs" />
     <Compile Include="Models\TMDbInitializer.cs" />
     <Compile Include="Models\User.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\SlotFuncAuthRecordService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="ViewModels\Export\ToKantOrderShopeeView.cs" />
     <Compile Include="ViewModels\Role\RoleEditCatalogView.cs" />
     <Compile Include="ViewModels\Role\RoleIndexView.cs" />
+    <Compile Include="ViewModels\SlotFuncAuthRecord\SlotFuncAuthRecordIndexView.cs" />
     <Compile Include="ViewModels\User\UserEditRoleView.cs" />
     <Compile Include="ViewModels\User\UserIndexView.cs" />
   </ItemGroup>

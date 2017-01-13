@@ -47,6 +47,7 @@ namespace TM.Web.Attribute
                 LoginState.LoginAccount = user.Account;
                 LoginState.LoginUserId = user.UserId;
                 LoginState.LoginUserName = user.UserName;
+                LoginState.LoginEmployeeId = user.EmployeeId;
             }
 
             return isValid;

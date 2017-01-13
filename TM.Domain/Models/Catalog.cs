@@ -32,7 +32,7 @@ namespace TM.Domain.Models
         [DisplayName("目錄排序")]
         public int CatalogOrder { get; set; }
 
-        [StringLength(200)]
+        [StringLength(250)]
         [DisplayName("Permission")]
         [Required(ErrorMessage = "請輸入Permission")]
         public string Permission { get; set; }
