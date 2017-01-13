@@ -98,6 +98,7 @@
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SlotFuncAuthRecordService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Utilities\Common.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
     <Compile Include="ViewModels\Chart\DiaryChartView.cs" />

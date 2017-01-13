@@ -17,13 +17,11 @@ namespace TM.Web.Controllers
     {
         private UserService _UserService;
         private RoleService _RoleService;
-        //private Int16 _PageSize;
 
         public UserController()
         {
             _UserService = new UserService();
             _RoleService = new RoleService();
-            //_PageSize = WebConfigManager.PageSize;
         }
 
         [HttpGet]

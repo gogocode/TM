@@ -7,6 +7,7 @@ using System.Web.Security;
 using TM.Domain;
 using TM.Domain.Models;
 using TM.Domain.Services;
+using TM.Domain.Utilities;
 using TM.Domain.ViewModels;
 using TM.Web.Attribute;
 
@@ -39,7 +40,6 @@ namespace TM.Web.Controllers
             string msg = string.Empty;
             string roles = string.Empty;
 
-
             User user = _userService.FindUser(vm);
 
             msg = CheckAccount(user, ref roles);
@@ -65,6 +65,7 @@ namespace TM.Web.Controllers
                 LoginState.LoginAccount = user.Account;
                 LoginState.LoginUserId = user.UserId;
                 LoginState.LoginUserName = user.UserName;
+                LoginState.LoginEmployeeId = user.EmployeeId;
 
                 return RedirectToAction("Index", "Home");
             }
@@ -97,6 +98,7 @@ namespace TM.Web.Controllers
 
             if(ModelState.IsValid)
             {
+                //MD5Encoder.Encrypt(registerVM.UserPassword);
                 cnt = _userService.Create(user);
             }
 
@@ -131,7 +133,6 @@ namespace TM.Web.Controllers
 
             return msg;
         }
-
 
         #endregion
     }
