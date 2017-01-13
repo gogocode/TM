@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TM.Domain.Models;
+using TM.Domain.Utilities;
 using TM.Domain.ViewModels;
 
 namespace TM.Domain.Services
@@ -26,7 +27,8 @@ namespace TM.Domain.Services
 
         public User FindUser(AccountLoginView vm)
         {
-            return _db.Users.FirstOrDefault(x => x.Account == vm.Account && x.Password == vm.Password);
+            string password = Common.Encrypt(vm.Password);
+            return _db.Users.FirstOrDefault(x => x.Account == vm.Account && x.Password == password);
         }
 
         public IPagedList<User> FindPagedUsers(string userName,int pageNumber,int pageSize)

@@ -98,7 +98,7 @@ namespace TM.Web.Controllers
 
             if(ModelState.IsValid)
             {
-                //MD5Encoder.Encrypt(registerVM.UserPassword);
+                user.Password = Common.Encrypt(user.Password);
                 cnt = _userService.Create(user);
             }
 
