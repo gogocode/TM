@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TM.Domain;
+using TM.Domain.Models;
 using TM.Domain.Services;
 using TM.Domain.ViewModels;
 using TM.Web.Attribute;
@@ -12,11 +13,11 @@ namespace TM.Web.Controllers
 {
     public class SlotFuncAuthRecordController : BaseController
     {
-        private SlotFuncAuthRecordService _SlotFuncAuthRecord;
+        private SlotFuncAuthRecordService _SlotFuncAuthRecordService;
 
         public SlotFuncAuthRecordController()
         {
-            _SlotFuncAuthRecord = new SlotFuncAuthRecordService();
+            _SlotFuncAuthRecordService = new SlotFuncAuthRecordService();
         }
 
         #region 查詢
@@ -25,7 +26,7 @@ namespace TM.Web.Controllers
         public ActionResult Index()
         {
             SlotFuncAuthRecordIndexView vm = new SlotFuncAuthRecordIndexView();
-            vm.SlotFuncAuthRecords = _SlotFuncAuthRecord.FindByPageds(null,null,1,_PageSize);
+            vm.SlotFuncAuthRecords = _SlotFuncAuthRecordService.FindByPageds(null,null,null,1,_PageSize);
 
             return View(vm);
         }
@@ -34,7 +35,7 @@ namespace TM.Web.Controllers
         [CheckAuth]
         public ActionResult IndexPost(SlotFuncAuthRecordIndexView vm)
         {
-            vm.SlotFuncAuthRecords = _SlotFuncAuthRecord.FindByPageds(vm.SearchEmployeeId, vm.SearchEmployeeName, vm.CurrentPage, _PageSize);
+            vm.SlotFuncAuthRecords = _SlotFuncAuthRecordService.FindByPageds(vm.SearchEmployeeId, vm.SearchEmployeeName,vm.SearchIsCompleted, vm.CurrentPage, _PageSize);
 
             return View("Index",vm);
         }
@@ -42,7 +43,7 @@ namespace TM.Web.Controllers
 
         #region 新增
 
-        [HttpGet]
+        [HttpPost]
         [CheckAuth]
         public ActionResult CreatePost(SlotFuncAuthRecordIndexView vm)
         {
@@ -52,7 +53,7 @@ namespace TM.Web.Controllers
             {
                 vm.AddSlotFuncAuthRecord.Creator = LoginState.LoginEmployeeId;
                 vm.AddSlotFuncAuthRecord.CreateDateTime = System.DateTime.Now;
-                cnt = _SlotFuncAuthRecord.Create(vm.AddSlotFuncAuthRecord);
+                cnt = _SlotFuncAuthRecordService.Create(vm.AddSlotFuncAuthRecord);
 
                 if (cnt > 0)
                 {
@@ -64,8 +65,6 @@ namespace TM.Web.Controllers
                 }
             }
 
-            vm.SlotFuncAuthRecords = _SlotFuncAuthRecord.FindByPageds(vm.SearchEmployeeId, vm.SearchEmployeeName, vm.CurrentPage, _PageSize);
-
             return RedirectToAction("Index");
         }
         #endregion
@@ -73,25 +72,52 @@ namespace TM.Web.Controllers
         #region 編輯
         [HttpGet]
         [CheckAuth]
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View();
+           var model =  _SlotFuncAuthRecordService.Find(id);
+
+            return PartialView("_EditView",model);
         }
 
-        [HttpGet]
+        [HttpPost]
         [CheckAuth]
-        public ActionResult EidtPost()
+        public ActionResult EditPost(SlotFuncAuthRecord model)
         {
-            return View();
+            model.Editor = LoginState.LoginEmployeeId;
+            model.EditDateTime = System.DateTime.Now;
+
+            int cnt = _SlotFuncAuthRecordService.Modify(model);
+
+            if (cnt > 0)
+            {
+                TempData["Message"] = string.Format("{0},{1}", "success", "修改成功");
+            }
+            else
+            {
+                TempData["Message"] = string.Format("{0},{1}", "warning", "修改失敗");
+            }
+
+            return RedirectToAction("Index");
         }
         #endregion
 
         #region 刪除
         [HttpGet]
         [CheckAuth]
-        public ActionResult Delete()
+        public ActionResult Delete(int id)
         {
-            return View();
+            int cnt = _SlotFuncAuthRecordService.Delete(id);
+
+            if (cnt > 0)
+            {
+                TempData["Message"] = string.Format("{0},{1}", "success", "刪除成功");
+            }
+            else
+            {
+                TempData["Message"] = string.Format("{0},{1}", "warning", "刪除失敗");
+            }
+
+            return RedirectToAction("Index");
         }
         #endregion
 

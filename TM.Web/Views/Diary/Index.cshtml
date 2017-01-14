@@ -63,7 +63,7 @@
                     @Html.ValidationMessageFor(model => model.AddDiary.WorkDate, "", new { @class = "text-danger" })
                 </td>
                 <td>
-                    @Html.DropDownItem(model => model.AddDiary.Item)
+                    @Html.DropDownForDiaryItem(model => model.AddDiary.Item)
                     @Html.ValidationMessageFor(model => model.AddDiary.Item, "", new { @class = "text-danger" })
                 </td>
                 <td>

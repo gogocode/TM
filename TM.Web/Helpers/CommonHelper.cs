@@ -48,6 +48,22 @@ namespace System.Web.Mvc
             return MvcHtmlString.Create(result.ToString());
         }
 
+        public static MvcHtmlString DropDownForBoolType<TModel, TValue>(this HtmlHelper<TModel> html,
+            Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
+        {
+            string id = Html.NameExtensions.IdFor(html, expression).ToString();
+            string idForFunctionName = id.Replace('-', '_'); //注意
+            string value = Html.ValueExtensions.ValueFor(html, expression).ToString();
+            List<SelectListItem> usersSLItems = new List<SelectListItem>();
+            usersSLItems.Add(new SelectListItem { Text = "請選擇", Value = "", Selected = string.IsNullOrWhiteSpace(value) });
+            usersSLItems.Add(new SelectListItem { Text = "是", Value = "Y", Selected = ("T" == value) });
+            usersSLItems.Add(new SelectListItem { Text = "否", Value = "N", Selected = ("N" == value) });
+
+            MvcHtmlString result = Html.SelectExtensions.DropDownListFor(html, expression, usersSLItems, new { @class = "form-control" });
+
+            return MvcHtmlString.Create(result.ToString());
+        }
+
         private static List<SelectListItem> GetYears(int year,int startYear = 2016)
         {
             List<SelectListItem> years = new List<SelectListItem>();

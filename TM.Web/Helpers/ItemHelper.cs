@@ -5,12 +5,14 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using TM.Domain.Models;
+using TM.Domain.Models.Json;
+using TM.Domain.Utilities;
 
 namespace System.Web.Mvc
 {
     public static class ItemHelper
     {
-        public static MvcHtmlString DropDownItem<TModel, TValue>(this HtmlHelper<TModel> html,
+        public static MvcHtmlString DropDownForDiaryItem<TModel, TValue>(this HtmlHelper<TModel> html,
             Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
         {
             TMDbContext _TMDb = new TMDbContext();
@@ -44,6 +46,34 @@ namespace System.Web.Mvc
             retorno.Append("</div>");
 
             return MvcHtmlString.Create(retorno.ToString());
+        }
+
+        public static MvcHtmlString DropDownForSLotAuthItem<TModel, TValue>(this HtmlHelper<TModel> html,
+            Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
+        {
+
+            string id = Html.NameExtensions.IdFor(html, expression).ToString();
+            string idForFunctionName = id.Replace('-', '_'); //注意
+            string value = Html.ValueExtensions.ValueFor(html, expression).ToString();
+
+            List<CommonType> commonTypes = JsonType.GetSlotAuthTypes();
+
+            //CurrencyType 下拉選單
+            List<SelectListItem> sLotAuthItems = new List<SelectListItem>();
+
+            foreach (var commonType in commonTypes)
+            {
+                sLotAuthItems.Add(new SelectListItem()
+                {
+                    Text = commonType.Text ,
+                    Value = commonType.Value,
+                    Selected = (commonType.Value == value)
+                });
+            }
+
+            MvcHtmlString result = Html.SelectExtensions.DropDownListFor(html, expression, sLotAuthItems, new { @class = "form-control" });
+
+            return MvcHtmlString.Create(result.ToString());
         }
     }
 }

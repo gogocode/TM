@@ -18,7 +18,7 @@ namespace TM.Domain.Models
         [DisplayName("紀錄編號")]
         public int RecordId { get; set; }
 
-        [DisplayName("修改日期")]
+        [DisplayName("修改權限日期")]
         public DateTime? AuthModifyDate { get; set; }
 
         [StringLength(10)]
@@ -29,6 +29,7 @@ namespace TM.Domain.Models
         [DisplayName("員工姓名")]
         public string EmployeeName { get; set; }
 
+        [UIHint("SLotAuthItem")]
         [StringLength(50)]
         [DisplayName("項目")]
         public string Item { get; set; }
@@ -36,8 +37,9 @@ namespace TM.Domain.Models
         [DisplayName("內容")]
         public string Content { get; set; }
 
+        [StringLength(1)]
         [DisplayName("是否完成")]
-        public bool IsCompleted { get; set; }
+        public string IsCompleted { get; set; }
 
         [DisplayName("備註")]
         public string Comment { get; set; }

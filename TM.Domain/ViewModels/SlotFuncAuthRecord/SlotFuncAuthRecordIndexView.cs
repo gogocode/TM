@@ -17,6 +17,9 @@ namespace TM.Domain.ViewModels
         [DisplayName("員工姓名")]
         public string SearchEmployeeName { get; set; }
 
+        [DisplayName("是否完成")]
+        public string SearchIsCompleted { get; set; }
+
         public SlotFuncAuthRecord AddSlotFuncAuthRecord { get; set; }
 
         public IPagedList<SlotFuncAuthRecord> SlotFuncAuthRecords { get; set; }

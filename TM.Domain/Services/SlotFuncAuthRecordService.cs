@@ -28,7 +28,7 @@ namespace TM.Domain.Services
             return _db.SlotFuncAuthRecords.AsEnumerable();
         }
 
-        public IPagedList<SlotFuncAuthRecord> FindByPageds(string employeeId,string employeeName, int currentPage, int pageSize)
+        public IPagedList<SlotFuncAuthRecord> FindByPageds(string employeeId,string employeeName,string isCompleted, int currentPage, int pageSize)
         {
             currentPage = currentPage < 1 ? 1 : currentPage;
 
@@ -42,6 +42,11 @@ namespace TM.Domain.Services
             if (!string.IsNullOrWhiteSpace(employeeName))
             {
                 records = records.Where(x => x.EmployeeName.Contains(employeeName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(isCompleted))
+            {
+                records = records.Where(x => x.IsCompleted.Contains(isCompleted));
             }
 
             records = records.OrderByDescending(x => x.CreateDateTime);

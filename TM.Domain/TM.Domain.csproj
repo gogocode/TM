@@ -46,6 +46,10 @@
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,7 @@
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\Diary.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Json\CommonType.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\SlotFuncAuthRecord.cs" />
     <Compile Include="Models\TMDbContext.cs" />
@@ -99,6 +104,7 @@
     <Compile Include="Services\SlotFuncAuthRecordService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utilities\Common.cs" />
+    <Compile Include="Utilities\JsonType.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
     <Compile Include="ViewModels\Chart\DiaryChartView.cs" />
@@ -120,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="JsonTypes\SlotAuthType.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

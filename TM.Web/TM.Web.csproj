@@ -93,6 +93,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -174,11 +178,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -327,10 +326,11 @@
     <Content Include="Views\Diary\_ItemEditView.cshtml" />
     <Content Include="Views\Chart\DiaryChart.cshtml" />
     <Content Include="Views\SlotFuncAuthRecord\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SLotAuthItem.cshtml" />
+    <Content Include="Views\SlotFuncAuthRecord\_EditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="ThirdParties\air-datepicker-master\" />
     <Folder Include="ThirdParties\bootstrap-fileinput-master\" />
     <Folder Include="ThirdParties\echarts\" />
@@ -338,6 +338,7 @@
     <Folder Include="ThirdParties\maxazan-jquery-treegrid\" />
     <Folder Include="ThirdParties\sb-admin-2\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

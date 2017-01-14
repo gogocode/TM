@@ -1,0 +1,13 @@
+﻿@model string
+
+
+@{
+    string value = 
+          (Model == "1") ? "新增" 
+        : (Model == "2") ? "變更" 
+        : (Model == "3") ? "停用" 
+        : (Model == "4") ? "刪除" 
+        : "";
+}
+
+@value

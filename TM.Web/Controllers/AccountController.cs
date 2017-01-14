@@ -25,8 +25,10 @@ namespace TM.Web.Controllers
         #region 登入
         [HttpGet]
         public ActionResult Login()
-
         {
+            var x= Server.MapPath("/");
+            var xxx = JsonType.GetSlotAuthTypes();
+
             AccountLoginView vm = new AccountLoginView();
             vm.Account = "superadmin";
             vm.Password = "1234";

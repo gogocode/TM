@@ -20,8 +20,8 @@ namespace TM.Domain.Models
             {
                 #region 使用者
                 //使用者
-                User superAdmin = new User() { UserName = "超級管理員",EmployeeId = "SuperaAmin", Account = "superadmin", Password = "1234", Email = "t@86shop.com.tw", IsActive = true };
-                User tonyho = new User() { UserName = "tonyho",EmployeeId = "1698", Account = "tonyho", Password = "1234", Email = "tonyho@86shop.com.tw", IsActive = true };
+                User superAdmin = new User() { UserName = "超級管理員",EmployeeId = "SuperaAmin", Account = "superadmin", Password = "81DC9BDB52D04DC20036DBD8313ED055", Email = "t@86shop.com.tw", IsActive = true };
+                User tonyho = new User() { UserName = "tonyho",EmployeeId = "1698", Account = "tonyho", Password = "81DC9BDB52D04DC20036DBD8313ED055", Email = "tonyho@86shop.com.tw", IsActive = true };
                 db.Users.Add(superAdmin);
                 db.Users.Add(tonyho);
                 #endregion
