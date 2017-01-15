@@ -5,9 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using TM.Domain;
 using TM.Domain.Manager;
 using TM.Domain.Models;
 using TM.Domain.Services;
+using TM.Domain.Utilities;
 using TM.Domain.ViewModels;
 using TM.Web.Attribute;
 
@@ -24,6 +26,7 @@ namespace TM.Web.Controllers
             _RoleService = new RoleService();
         }
 
+        #region 查詢
         [HttpGet]
         [CheckAuth]
         public ActionResult Index()
@@ -40,9 +43,11 @@ namespace TM.Web.Controllers
         {
             vm.Users = _UserService.FindPagedUsers(vm.UserName, vm.CurrentPage, _PageSize);
 
-            return View("Index",vm);
+            return View("Index", vm);
         }
+        #endregion
 
+        #region 新增
         [HttpPost]
         [CheckAuth]
         public ActionResult CreatePost(UserIndexView vm)
@@ -67,11 +72,14 @@ namespace TM.Web.Controllers
 
             return View("Index", vm);
         }
+        #endregion
 
+        #region 編輯
         [HttpPost]
         [CheckAuth]
         public ActionResult EditPost(User user)
         {
+            user.Password = Common.Encrypt(user.Password);
             int cnt = _UserService.Modify(user);
 
             if (cnt > 0)
@@ -85,7 +93,9 @@ namespace TM.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region 刪除
         [HttpGet]
         [CheckAuth]
         public ActionResult Delete(int id)
@@ -103,12 +113,14 @@ namespace TM.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region 編輯角色
         [HttpPost]
         [CheckAuth]
         public ActionResult EditRolePost(UserEditRoleView vm)
         {
-            int cnt = _UserService.ModifyUserRoles(vm.UserId,vm.SelectedRoleIds);
+            int cnt = _UserService.ModifyUserRoles(vm.UserId, vm.SelectedRoleIds);
 
             if (cnt > 0)
             {
@@ -121,6 +133,7 @@ namespace TM.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
         #region Ajax
         [HttpGet]

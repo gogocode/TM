@@ -75,7 +75,7 @@
                     @Html.ValidationMessageFor(model => model.AddUser.EmployeeId, "", new { @class = "text-danger" })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.AddUser.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.PasswordFor(model => model.AddUser.Password, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.AddUser.Password, "", new { @class = "text-danger" })
                 </td>
                 <td>
@@ -107,7 +107,7 @@
                         @item.EmployeeId
                     </td>
                     <td>
-                        @item.Password
+                        ****
                     </td>
                     <td>
                         @item.Email

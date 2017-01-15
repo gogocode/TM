@@ -328,6 +328,8 @@
     <Content Include="Views\SlotFuncAuthRecord\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SLotAuthItem.cshtml" />
     <Content Include="Views\SlotFuncAuthRecord\_EditView.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -337,7 +339,6 @@
     <Folder Include="ThirdParties\jquery-confirm-master\" />
     <Folder Include="ThirdParties\maxazan-jquery-treegrid\" />
     <Folder Include="ThirdParties\sb-admin-2\" />
-    <Folder Include="Views\Base\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>

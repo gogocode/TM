@@ -115,6 +115,84 @@ namespace TM.Web.Controllers
         }
         #endregion
 
+        #region 變更密碼
+        [CheckAuth]
+        [HttpGet]
+        public ActionResult ChangePassword(AccountChangePasswordView vm)
+        {
+            return View(vm);
+        }
+
+        [CheckAuth]
+        [HttpPost]
+        public ActionResult ChangePasswordPost(AccountChangePasswordView vm)
+        {
+            User user = _userService.Find(LoginState.LoginUserId);
+
+            if(user.Password == Common.Encrypt(vm.Password))
+            {
+                user.Password = Common.Encrypt(vm.NewPassword);
+                int cnt = _userService.Modify(user);
+
+                if (cnt > 0)
+                {
+                    TempData["Message"] = string.Format("{0},{1}", "success", "修改成功");
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["Message"] = string.Format("{0},{1}", "warning", "修改失敗");
+                    return View();
+                }
+            }
+
+            ModelState.AddModelError("Password", string.Format("密碼錯誤"));
+
+            return View("ChangePassword",vm);
+        }
+        #endregion
+
+        #region 個人資料
+        [HttpGet]
+        [CheckAuth]
+        public ActionResult EditProfile()
+        {
+            UserEditProfileView vm = new UserEditProfileView();
+            User user = _userService.Find(LoginState.LoginUserId);
+            vm.EmployeeId = user.EmployeeId;
+            vm.Account = user.Account;
+            vm.UserName = user.UserName;
+            vm.Email = user.Email;
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [CheckAuth]
+        public ActionResult EditProfilePost(UserEditProfileView vm)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = _userService.Find(LoginState.LoginUserId);
+                user.UserName = vm.UserName;
+                user.Email = vm.Email;
+
+                int cnt = _userService.Modify(user);
+
+                if (cnt > 0)
+                {
+                    TempData["Message"] = string.Format("{0},{1}", "success", "修改成功");
+                }
+                else
+                {
+                    TempData["Message"] = string.Format("{0},{1}", "warning", "修改失敗");
+                }
+            }
+
+            return View("EditProfile", vm);
+        }
+        #endregion
+
         #region 私有方法
         private string CheckAccount(User user,ref string roles)
         {

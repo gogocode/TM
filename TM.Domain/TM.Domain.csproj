@@ -105,6 +105,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\JsonType.cs" />
+    <Compile Include="ViewModels\Account\AccountChangePasswordView.cs" />
     <Compile Include="ViewModels\Account\AccountLoginView.cs" />
     <Compile Include="ViewModels\Catalog\CatalogIndexView.cs" />
     <Compile Include="ViewModels\Chart\DiaryChartView.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="ViewModels\Role\RoleEditCatalogView.cs" />
     <Compile Include="ViewModels\Role\RoleIndexView.cs" />
     <Compile Include="ViewModels\SlotFuncAuthRecord\SlotFuncAuthRecordIndexView.cs" />
+    <Compile Include="ViewModels\User\UserEditProfileView.cs" />
     <Compile Include="ViewModels\User\UserEditRoleView.cs" />
     <Compile Include="ViewModels\User\UserIndexView.cs" />
   </ItemGroup>

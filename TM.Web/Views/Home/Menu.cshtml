@@ -18,7 +18,7 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                @foreach (var item in Model.Where(c => c.ParentCatalogId == null).ToList())
+                @foreach (var item in Model.Where(c => c.ParentCatalogId == null && c.IsMenu == true).ToList())
                 {
                     @PrintMenu(item)
                 }

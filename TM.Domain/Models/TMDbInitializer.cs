@@ -56,44 +56,12 @@ namespace TM.Domain.Models
                 #region 功能維護
                 Catalog catalogLevel01 = new Catalog();
 
-                //功能維護管理
-                catalogLevel01 = new Catalog { CatalogName = "功能維護管理", CatalogOrder = 11, Permission = "Catalog", IsMenu = true, Comment = "", IconClass = "fa fa-tasks", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
+                //帳號管理
+                catalogLevel01 = new Catalog { CatalogName = "帳號管理", CatalogOrder = 1, Permission = "Account", IsMenu = false, Comment = "", IconClass = "fa fa-desktop", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, generalRole } };
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
-                    new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "Catalog/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "功能維護首頁", CatalogOrder = 2, Permission = "Catalog/Index", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Catalog/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Catalog/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                }.ForEach(o => db.Catalogs.Add(o));
-
-                //工作日誌管理
-                catalogLevel01 = new Catalog { CatalogName = "工作日誌管理", CatalogOrder = 20, Permission = "Diary", IsMenu = true, Comment = "", IconClass = "fa fa-file-text-o", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, generalRole } };
-                db.Catalogs.Add(catalogLevel01);
-                new List<Catalog> {
-                    new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "Diary/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, generalRole } },
-                    new Catalog { CatalogName = "工作日誌管理首頁", CatalogOrder = 2, Permission = "Diary/Index,IndexPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, generalRole } },
-                    new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Diary/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole , generalRole } },
-                    new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Diary/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole , generalRole } },
-                    new Catalog { CatalogName = "檢視使用者日誌", CatalogOrder = 5, Permission = "Diary/LookUserDiary,LookUserDiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "項目管理", CatalogOrder = 6, Permission = "Diary/ItemIndex,ItemCreate,ItemEdit,ItemDelete", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole , generalRole } },
-                }.ForEach(o => db.Catalogs.Add(o));
-
-                //基本功能
-                catalogLevel01 = new Catalog { CatalogName = "基本功能", CatalogOrder = 21, Permission = "Fundamental", IsMenu = true, Comment = "", IconClass = "fa fa-apple", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, generalRole } };
-                db.Catalogs.Add(catalogLevel01);
-                new List<Catalog> {
-                    new Catalog { CatalogName = "SLOT功能權限紀錄", CatalogOrder = 1, Permission = "SlotFuncAuthRecord/Index,IndexPost,Edit,EditPost,CreatePost,Delete", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, slotAuthRole } },
-                }.ForEach(o => db.Catalogs.Add(o));
-
-                //使用者管理
-                catalogLevel01 = new Catalog { CatalogName = "使用者管理", CatalogOrder = 12, Permission = "User", IsMenu = true, Comment = "", IconClass = "fa fa-user", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
-                db.Catalogs.Add(catalogLevel01);
-                new List<Catalog> {
-                    new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "User/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "使用者首頁", CatalogOrder = 2, Permission = "User/Index,IndexPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "User/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "User/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
-                    new Catalog { CatalogName = "修改角色", CatalogOrder = 5, Permission = "User/EditRole,EditRolePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "修改密碼", CatalogOrder = 1, Permission = "Account/ChangePassword,ChangePasswordPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, generalRole } },
+                    new Catalog { CatalogName = "個人資料", CatalogOrder = 6, Permission = "Account/EditProfile,EditProfilePost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole,generalRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
 
                 //角色管理
@@ -107,15 +75,56 @@ namespace TM.Domain.Models
                     new Catalog { CatalogName = "角色目錄權限", CatalogOrder = 5, Permission = "Role/EditCatalog,EditCatalogPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
 
+                //功能維護管理
+                catalogLevel01 = new Catalog { CatalogName = "功能維護管理", CatalogOrder = 11, Permission = "Catalog", IsMenu = true, Comment = "", IconClass = "fa fa-tasks", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
+                db.Catalogs.Add(catalogLevel01);
+                new List<Catalog> {
+                    new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "Catalog/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "功能維護首頁", CatalogOrder = 2, Permission = "Catalog/Index", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Catalog/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Catalog/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                }.ForEach(o => db.Catalogs.Add(o));
+
+                //使用者管理
+                catalogLevel01 = new Catalog { CatalogName = "使用者管理", CatalogOrder = 12, Permission = "User", IsMenu = true, Comment = "", IconClass = "fa fa-male", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
+                db.Catalogs.Add(catalogLevel01);
+                new List<Catalog> {
+                    new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "User/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "使用者首頁", CatalogOrder = 2, Permission = "User/Index,IndexPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "User/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "User/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "修改角色", CatalogOrder = 5, Permission = "User/EditRole,EditRolePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    
+                }.ForEach(o => db.Catalogs.Add(o));
+
+                //工作日誌管理
+                catalogLevel01 = new Catalog { CatalogName = "工作日誌", CatalogOrder = 20, Permission = "Diary", IsMenu = true, Comment = "", IconClass = "fa fa-file-text-o", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, generalRole } };
+                db.Catalogs.Add(catalogLevel01);
+                new List<Catalog> {
+                    new Catalog { CatalogName = "新增", CatalogOrder = 1, Permission = "Diary/Create,CreatePost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, generalRole } },
+                    new Catalog { CatalogName = "工作日誌首頁", CatalogOrder = 2, Permission = "Diary/Index,IndexPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, generalRole } },
+                    new Catalog { CatalogName = "修改", CatalogOrder = 3, Permission = "Diary/Edit,EditPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole , generalRole } },
+                    new Catalog { CatalogName = "刪除", CatalogOrder = 4, Permission = "Diary/Delete", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole , generalRole } },
+                    new Catalog { CatalogName = "檢視使用者日誌", CatalogOrder = 5, Permission = "Diary/LookUserDiary,LookUserDiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "項目管理", CatalogOrder = 6, Permission = "Diary/ItemIndex,ItemCreate,ItemEdit,ItemDelete", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole , generalRole } },
+                }.ForEach(o => db.Catalogs.Add(o));
+
+                //基本功能
+                catalogLevel01 = new Catalog { CatalogName = "基本功能", CatalogOrder = 21, Permission = "Fundamental", IsMenu = true, Comment = "", IconClass = "fa fa-apple", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, slotAuthRole } };
+                db.Catalogs.Add(catalogLevel01);
+                new List<Catalog> {
+                    new Catalog { CatalogName = "SLOT功能權限紀錄", CatalogOrder = 1, Permission = "SlotFuncAuthRecord/Index,IndexPost,Edit,EditPost,CreatePost,Delete", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, slotAuthRole } },
+                }.ForEach(o => db.Catalogs.Add(o));
+
                 //匯入管理
-                catalogLevel01 = new Catalog { CatalogName = "匯入管理", CatalogOrder = 30, Permission = "Export", IsMenu = true, Comment = "", IconClass = "glyphicon glyphicon-export", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
+                catalogLevel01 = new Catalog { CatalogName = "匯入", CatalogOrder = 30, Permission = "Export", IsMenu = true, Comment = "", IconClass = "glyphicon glyphicon-export", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
                     new Catalog { CatalogName = "匯入工作日誌", CatalogOrder = 1, Permission = "Export/Diary,DiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
 
                 //圖表
-                catalogLevel01 = new Catalog { CatalogName = "圖表管理", CatalogOrder = 31, Permission = "Chart", IsMenu = true, Comment = "", IconClass = "fa fa-bar-chart-o", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, generalRole } };
+                catalogLevel01 = new Catalog { CatalogName = "圖表", CatalogOrder = 31, Permission = "Chart", IsMenu = true, Comment = "", IconClass = "fa fa-bar-chart-o", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole, generalRole } };
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
                     new Catalog { CatalogName = "個人工作統計圖", CatalogOrder = 1, Permission = "Chart/DiaryChart,DiaryChartPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, generalRole } },
