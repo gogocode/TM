@@ -30,7 +30,6 @@ namespace TM.Domain.Models
         [Required(ErrorMessage = "請輸入工作內容")]
         public string Content { get; set; }
 
-
         [DisplayName("時數")]
         public Decimal Hours { get; set; }
 

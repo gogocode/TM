@@ -77,9 +77,13 @@ namespace TM.Web.Controllers
         #region 編輯
         [HttpPost]
         [CheckAuth]
-        public ActionResult EditPost(User user)
+        public ActionResult EditPost(User modifyUser)
         {
-            user.Password = Common.Encrypt(user.Password);
+            User user = _UserService.Find(modifyUser.UserId);
+            user.UserName = modifyUser.UserName;
+            user.Email = modifyUser.Email;
+            user.IsActive = modifyUser.IsActive;
+
             int cnt = _UserService.Modify(user);
 
             if (cnt > 0)

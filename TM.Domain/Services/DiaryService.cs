@@ -13,10 +13,12 @@ namespace TM.Domain.Services
     public class DiaryService
     {
         private TMDbContext _db;
+        private ItemService _ItemService;
 
         public DiaryService()
         {
             _db = new TMDbContext();
+            _ItemService = new ItemService();
         }
 
         public Diary Find(int id)
@@ -123,22 +125,36 @@ namespace TM.Domain.Services
         public JobWeightChart FindJobWeightData(string year, string month, int userId)
         {
             JobWeightChart chart = new JobWeightChart();
-
-            List<Diary> diaryLogs = FindByMonth(year, month, userId);
-            var diariesGroup = from q in diaryLogs
-                                group q by q.Item into g
-                                select new
-                                {
+            List<string> items = _ItemService.FindAll().Select(x=>x.ItemName).ToList();
+            List<Diary> diaries = FindByMonth(year, month, userId);
+            
+            var diariesGroup = from q in diaries
+                               where items.Contains(q.Item)
+                               group q by q.Item into g
+                               select new
+                               {
                                     Item = g.Key,
                                     ItemSum = g.Select(x => x.Hours).Sum()
-                                };
+                               };
 
-            chart.Legend = diariesGroup.Select(x => x.Item).ToList();
-            chart.Series = diariesGroup.Select(x => new Series
+            //沒有在項目資料表中的
+            decimal notInItems = diaries.Where(x => !items.Contains(x.Item)).Select(x => x.Hours).Sum();
+
+            if(notInItems > 0)
+            {
+                //chart.Legend = new List<string>();
+                //chart.Series = new List<Series>();
+
+                chart.Legend.Add("其它(未在項目中)");
+                chart.Series.Add(new Series { name = "其它(未在項目中)", value = notInItems });
+            }
+
+            chart.Legend.AddRange(diariesGroup.Select(x => x.Item).ToList());
+            chart.Series.AddRange(diariesGroup.Select(x => new Series
             {
                 value = x.ItemSum,
                 name = x.Item
-            }).ToList();
+            }).ToList());
 
             return chart;
         }

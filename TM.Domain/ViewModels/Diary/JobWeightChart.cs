@@ -8,6 +8,12 @@ namespace TM.Domain.ViewModels
 {
     public class JobWeightChart
     {
+        public JobWeightChart()
+        {
+            Legend = new List<string>();
+            Series = new List<Series>();
+        }
+
         public List<string> Legend { get; set; }
 
         public List<Series> Series { get; set; }

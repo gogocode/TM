@@ -23,8 +23,8 @@ namespace TM.Domain.Models
         public int UserId { get; set; }
 
         [StringLength(30)]
-        [DisplayName("使用者中文名稱")]
-        [Required(ErrorMessage = "請輸入使用者中文名稱")]
+        [DisplayName("中文名稱")]
+        [Required(ErrorMessage = "請輸入中文名稱")]
         public string UserName { get; set; }
 
         [StringLength(10)]
