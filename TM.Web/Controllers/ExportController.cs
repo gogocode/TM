@@ -13,7 +13,7 @@ namespace TM.Web.Controllers
 {
     public class ExportController : Controller
     {
-        //匯入工作日誌
+        #region 匯入工作日誌
         [HttpGet]
         [CheckAuth]
         public ActionResult Diary()
@@ -27,6 +27,22 @@ namespace TM.Web.Controllers
         {
             return View();
         }
+        #endregion
 
+        #region 匯入文件
+        [HttpGet]
+        [CheckAuth]
+        public ActionResult Doc()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [CheckAuth]
+        public ActionResult DocPost(HttpPostedFileBase file)
+        {
+            return View();
+        }
+        #endregion
     }
 }

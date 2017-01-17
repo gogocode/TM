@@ -33,10 +33,13 @@ namespace TM.Domain.Models
                 Role generalRole = new Role { RoleEngName = "general", RoleName = "一般使用者", Users = new List<User>() { tonyho } };
                 //SLOT權限管理者
                 Role slotAuthRole = new Role { RoleEngName = "slotauth", RoleName = "SLOT權限管理者", Users = new List<User>() { tonyho } };
+                //文件管理者
+                Role docRole = new Role { RoleEngName = "slotauth", RoleName = "SLOT權限管理者", Users = new List<User>() { tonyho } };
 
                 db.Roles.Add(superAdminRole);
                 db.Roles.Add(generalRole);
                 db.Roles.Add(slotAuthRole);
+                db.Roles.Add(docRole);
                 #endregion
 
                 #region 項目
@@ -120,7 +123,8 @@ namespace TM.Domain.Models
                 catalogLevel01 = new Catalog { CatalogName = "匯入", CatalogOrder = 30, Permission = "Export", IsMenu = true, Comment = "", IconClass = "glyphicon glyphicon-export", ParentCatalogId = null, Roles = new List<Role>() { superAdminRole } };
                 db.Catalogs.Add(catalogLevel01);
                 new List<Catalog> {
-                    new Catalog { CatalogName = "匯入工作日誌", CatalogOrder = 1, Permission = "Export/Diary,DiaryPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "匯入工作日誌", CatalogOrder = 1, Permission = "Export/Diary,DiaryPost", IsMenu = false, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole } },
+                    new Catalog { CatalogName = "匯入文件", CatalogOrder = 2, Permission = "Export/Doc,DocPost", IsMenu = true, Comment = "", IconClass = "", ParentCatalog = catalogLevel01, Roles = new List<Role>() { superAdminRole, docRole } },
                 }.ForEach(o => db.Catalogs.Add(o));
 
                 //圖表

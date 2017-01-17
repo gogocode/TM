@@ -1,0 +1,37 @@
+﻿@using TM.Domain.ViewModels
+
+@model RoleIndexView
+
+@{
+    ViewBag.Title = "文件匯入";
+}
+
+<link href="~/ThirdParties/bootstrap-fileinput-master/css/fileinput.min.css" rel="stylesheet" />
+<div class="row">
+    <h2>
+        @ViewBag.Title
+    </h2>
+</div>
+<div class="form-group col-md-8">
+    <form method="post" enctype="multipart/form-data">
+        <input id="file" name="file" type="file" multiple>
+    </form>
+</div>
+
+@section scripts{
+    <script src="~/ThirdParties/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+    <script src="~/ThirdParties/bootstrap-fileinput-master/js/locales/zh-TW.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('#file').fileinput({
+                    language: 'zh-TW',
+                    uploadUrl: '@Url.Action("DiaryPost","Export")',
+                    allowedFileExtensions: ['jpg', 'png', 'gif'],
+                    maxFilePreviewSize: 10240
+                });
+            });
+    </script>
+
+}
+
+
